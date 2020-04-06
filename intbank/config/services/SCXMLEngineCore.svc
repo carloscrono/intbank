@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<domains xmlns="http://www.intervoice.com/schema/property/3.0" >
+	<audit savedby="eclipse" timestamp="Apr 1 13:08:10 CDT 2008" version="3.0.1.0" />
+	<domain id="com.intervoice.scxml.runtime.engine" domain-type="SERVICE">
+		<description value="SCXML Engine Core Configuration" />
+        <display-name value="SCXML Engine Core"/>
+		<property key="maxAllowedSessionDurationMins" javascript-validators="validateIntegerRange(0, 2147483647);">
+			<app-value value="1440" />
+			<default-value value="1440" />
+			<description value="Maximum duration in minutes that SCXML Session is allowed to run. (1440 = 1 day; 0 = Unrestricted)" />
+		</property>
+		<property key="loggingPrivacy"  javascript-validators="validateBoolean();">
+			<app-value value="false" />
+			<default-value value="false" />
+			<description value="Set to &apos;true&apos; to disable logging of any data that might be considered private. (Allowed values: true | false)" />
+		</property>
+		<!-- =========================================================================== -->
+		<!-- The properties below is for Maximum Server Processing Time (milliseconds).  --> 
+		<!-- =========================================================================== -->
+        <property key="maxServerProcessingTime">
+            <app-value value="30000" />
+            <default-value value="30000" />
+            <description value="This attribute specifies the maximum IC application Server Processing Time in milliseconds. If the application is using multiple consecutive external data accesses before doing the next interaction, then the time should be set the sum of all those timeouts for external data access. " />
+        </property>
+        <property key="maxServerProcessingTimeAddon" displayable="false">
+            <app-value value="5000" />
+            <default-value value="5000" />
+            <description value="This attribute specifies the additional time add on to maxServerProcessingTime in milliseconds. It help the application finish consecutive external data accesses finished first before Media Server reach fetchtimeout. " />
+        </property>
+	</domain>
+</domains>

@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<grammar xml:lang="en-US" version="1.0" root="root" mode="voice">
+<rule id="root" scope="public">
+  <one-of>
+    <item tag="MEANING='checks'" >
+      <one-of>
+        <item >checks</item>
+        <item >last six checks</item>
+        <item >list of checks</item>
+      </one-of>
+    </item>
+    <item tag="MEANING='balances'" >
+      <one-of>
+        <item >balances</item>
+        <item >get balances</item>
+      </one-of>
+    </item>
+    <item tag="MEANING='convert_currency'" >
+      <one-of>
+        <item >convert currency</item>
+        <item >convert_currency</item>
+        <item >currency conversion</item>
+        <item >rates</item>
+      </one-of>
+    </item>
+  </one-of>
+</rule>
+</grammar>

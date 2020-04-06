@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Exporter version 1.0 at 2020-03-06 14:35:16.440 GMT-6--><!--Note: Components marked as 'debug' have been removed from the call flow.--><scxml xmlns:icview="http://www.intervoice.com/sce/icview"
+       xmlns:jms="http://www.intervoice.com/sce/action/jms"
+       xmlns:mim="http://www.intervoice.com/sce/action/mim"
+       xmlns:scripting="http://www.intervoice.com/sce/action/scripting"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       xmlns:process="http://www.intervoice.com/sce/action/process"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gtfns="http://www.intervoice.com/gtfns/1.0"
+       xmlns="http://www.w3.org/2007/02/scxml"
+       xmlns:icxml="http://www.intervoice.com/icxml"
+       xmlns:xmi="http://www.omg.org/XMI"
+       xmlns:intv="http://www.intervoice.com/scxml"
+       xmlns:vca="http://www.intervoice.com/sce/action/vca"
+       xmlns:ex="http://www.intervoice.com/exporter"
+       initialstate="documentEntry"
+       intv:worksheetscope="checklist/subroutines/voice/Worksheet.ws"
+       version="1.0">
+   <state id="documentEntry">
+      <initial>
+         <transition target="documentEntry_doLocalInit"/>
+      </initial>
+      <state id="documentEntry_doLocalInit">
+         <onentry>
+            <assign location="intv_appType" expr="undefined"/>
+            <rdotype:get xmlns:rdotype="http://www.intervoice.com/sce/action/rdotype"
+                         location="intv_appType"/>
+            <if cond="intv_appType == 'vca'">
+               <assign location="intv_appType" expr="'voice'"/>
+               <elseif cond="intv_appType == 'ccxml'"/>
+               <assign location="intv_appType" expr="'call'"/>
+               <elseif cond="intv_appType == 'UNKNOWN'"/>
+               <assign location="intv_appType" expr="'process'"/>
+            </if>
+         </onentry>
+         <transition target="documentEntry_initialize"/>
+      </state>
+      <state id="documentEntry_initialize">
+         <initial>
+            <transition target="getInitializeStatus_documentEntry_initialize"/>
+         </initial>
+         <datamodel>
+            <data name="src" expr="null"/>
+         </datamodel>
+         <state id="getInitializeStatus_documentEntry_initialize">
+            <transition cond="_ws.intv_isInitialized == undefined"
+                        target="doInitialize_documentEntry_initialize">
+               <assign location="_ws.intv_isInitialized" expr="true"/>
+            </transition>
+            <transition cond="true" target="subroutineEntry_rotzuz"/>
+         </state>
+         <state id="doInitialize_documentEntry_initialize">
+            <onentry>
+               <assign location="_ws.intv_libraryList" expr="new Array();"/>
+               <assign location="_ws.intv_librarySize" expr="0;"/>
+               <assign location="src" expr="'/checklist/subroutines/' + 'voice' + '/AsyncEvent.scxml'"/>
+               <assign location="intv_eventName" expr="'Initialize'"/>
+               <assign location="intv_eventData" expr="undefined"/>
+            </onentry>
+            <invoke targettype="x-scxml-component" srcexpr="src">
+               <param name="intv_eventName"/>
+               <param name="intv_eventData"/>
+            </invoke>
+            <transition event="doInitialize_documentEntry_initialize.invoke.done"
+                        target="subroutineEntry_rotzuz"/>
+         </state>
+      </state>
+      <datamodel><!--Variables from declaration block: _swCP4Dl8Ed6weaDUAx_gDA--><data name="intv_noFieldsInitialized" expr="undefined"/>
+         <data name="intv_allFieldsInitialized" expr="undefined"/>
+         <data name="intv_atLeastOneSituationExecuted" expr="undefined"/>
+         <data name="intv_modalities" expr="undefined"/>
+         <data name="intv_eventName" expr="undefined"/>
+         <data name="intv_eventData" expr="undefined"/>
+         <data name="intv_appType" expr="undefined"/>
+         <data name="accountNumber" expr="undefined"/>
+         <data name="numberOfRecords" expr="undefined"/>
+         <data name="DBError" expr="undefined"/>
+         <data name="loopCount" expr="undefined"/>
+      </datamodel>
+      <state id="subroutineEntry_rotzuz">
+         <onentry>
+            <assign location="intv_eventName" expr="undefined"/>
+            <if cond="_scxml.parameters.accountNumber == undefined">
+               <assign location="accountNumber" expr="undefined"/>
+               <else/>
+               <assign location="accountNumber" expr="_scxml.parameters.accountNumber"/>
+            </if>
+            <icview:log text="action=entry, type=SubroutineEntry, name=, id=subroutineEntry_rotzuz, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml">
+               <icview:param name="accountNumber" expr="undefined"/>
+            </icview:log>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=SubroutineEntry, name=, id=subroutineEntry_rotzuz, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="databaseRetrieve_hurtet"/>
+      </state>
+      <state id="subroutineReturn_mumjih">
+         <onentry>
+            <icview:log text="action=entry, type=SubroutineReturn, name=Success, id=subroutineReturn_mumjih, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            <send target="'parent'" event="'Success'"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=SubroutineReturn, name=Success, id=subroutineReturn_mumjih, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true">
+               <icview:result name="label" value="Success"/>
+            </icview:log>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+      <state xmlns:db="http://www.intervoice.com/sce/action/database"
+             id="databaseRetrieve_hurtet">
+         <initial>
+            <transition target="dbQuery_databaseRetrieve_hurtet"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=DatabaseRetrieve, name=AccessChecksTable, id=databaseRetrieve_hurtet, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml">
+               <icview:param name="sql" expr="'SELECT * FROM Checks WHERE AccountNum = ?'"/>
+            </icview:log>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=DatabaseRetrieve, name=AccessChecksTable, id=databaseRetrieve_hurtet, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true">
+               <icview:result name="resultVariable" expr="_ws.DBChecks"/>
+               <icview:result name="rowCountVariable" expr="numberOfRecords"/>
+            </icview:log>
+         </onexit>
+         <state id="dbQuery_databaseRetrieve_hurtet">
+            <onentry intv:abortonerror="true">
+               <assign location="_ws.DBChecks" expr="undefined"/>
+               <assign location="numberOfRecords" expr="0"/>
+               <assign location="DBError" expr="undefined"/>
+               <db:query datasource="'java:/comp/env/BankDBConn'" var="_ws.DBChecks"
+                         sql="'SELECT * FROM Checks WHERE AccountNum = ?'"
+                         timeout="7">
+                  <db:param expr="accountNumber" type="'VARCHAR'"/>
+               </db:query>
+               <if cond="_ws.DBChecks != null">
+                  <assign location="numberOfRecords" expr="_ws.DBChecks.length"/>
+               </if>
+            </onentry>
+            <transition cond="hasNoError()" target="calc_mipliz">
+               <icview:log text="action=leg:default, type=DatabaseRetrieve, name=AccessChecksTable, id=databaseRetrieve_hurtet, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db" target="log_wisxay">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="DBError" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db, type=DatabaseRetrieve, name=AccessChecksTable, id=databaseRetrieve_hurtet, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml">
+                  <icview:result name="errorVariable" expr="DBError"/>
+               </icview:log>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db.sql" target="log_wisxay">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="DBError" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db.sql, type=DatabaseRetrieve, name=AccessChecksTable, id=databaseRetrieve_hurtet, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml">
+                  <icview:result name="errorVariable" expr="DBError"/>
+               </icview:log>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db.naming" target="log_wisxay">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="DBError" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db.naming, type=DatabaseRetrieve, name=AccessChecksTable, id=databaseRetrieve_hurtet, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml">
+                  <icview:result name="errorVariable" expr="DBError"/>
+               </icview:log>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db.param" target="log_wisxay">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="DBError" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db.param, type=DatabaseRetrieve, name=AccessChecksTable, id=databaseRetrieve_hurtet, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml">
+                  <icview:result name="errorVariable" expr="DBError"/>
+               </icview:log>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db.internal" target="log_wisxay">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="DBError" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db.internal, type=DatabaseRetrieve, name=AccessChecksTable, id=databaseRetrieve_hurtet, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml">
+                  <icview:result name="errorVariable" expr="DBError"/>
+               </icview:log>
+            </transition>
+         </state>
+      </state>
+      <state id="log_wisxay">
+         <onentry>
+            <icview:log text="action=entry, type=Log, name=, id=log_wisxay, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            <log expr="'dbError: ' + DBError.errorType" label="'Default'"/>
+            <log expr="'Error Msg: ' + DBError.message" label="'Default'"/>
+            <log expr="'sql code: ' + DBError.sqlCode" label="'Default'"/>
+            <log expr="'State: ' + DBError.sqlState" label="'Default'"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Log, name=, id=log_wisxay, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="hasNoError()" target="subroutineReturn_gustor">
+            <icview:log text="action=leg:default, type=Log, name=, id=log_wisxay, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+         </transition>
+      </state>
+      <state id="subroutineReturn_gustor">
+         <onentry>
+            <icview:log text="action=entry, type=SubroutineReturn, name=Error, id=subroutineReturn_gustor, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            <send target="'parent'" event="'Error'"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=SubroutineReturn, name=Error, id=subroutineReturn_gustor, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true">
+               <icview:result name="label" value="Error"/>
+            </icview:log>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+      <state id="while_xupzov">
+         <datamodel>
+            <data expr="0" name="while_counter_while_xupzov"/>
+            <data expr="true" name="while_formula_while_xupzov"/>
+         </datamodel>
+         <initial>
+            <transition target="init_while_xupzov"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=While, name=LoopThruList, id=while_xupzov, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=While, name=LoopThruList, id=while_xupzov, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="init_while_xupzov">
+            <onentry intv:abortonerror="true">
+               <assign location="while_counter_while_xupzov" expr="1"/>
+               <assign location="intv_eventName" expr="undefined"/>
+            </onentry>
+            <transition cond="hasNoError()" target="check_while_xupzov"/>
+            <transition cond="true" target="check_while_xupzov"/>
+         </state>
+         <state id="check_while_xupzov">
+            <onentry intv:abortonerror="true">
+               <assign location="while_formula_while_xupzov"
+                       expr="(loopCount &lt; numberOfRecords) &amp;&amp;  (loopCount &lt; 6)"/>
+            </onentry>
+            <transition cond="while_formula_while_xupzov == true" target="log_nupraz">
+               <icview:log text="action=leg:doLoop, type=While, name=LoopThruList, id=while_xupzov, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            </transition>
+            <transition cond="true" target="play_sabvum">
+               <icview:log text="action=leg:default, type=While, name=LoopThruList, id=while_xupzov, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            </transition>
+         </state>
+         <state id="iterativeReentry_while_xupzov">
+            <onentry>
+               <assign location="while_counter_while_xupzov" expr="while_counter_while_xupzov + 1"/>
+            </onentry>
+            <transition target="check_while_xupzov"/>
+         </state>
+      </state>
+      <state id="calc_mipliz">
+         <onentry>
+            <icview:log text="action=entry, type=Calculate, name=InitializeLoop, id=calc_mipliz, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            <assign location="loopCount" expr="0"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Calculate, name=InitializeLoop, id=calc_mipliz, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true">
+               <icview:result name="loopCount" expr="loopCount"/>
+            </icview:log>
+         </onexit>
+         <transition cond="hasNoError()" target="while_xupzov">
+            <assign location="intv_eventName" expr="undefined"/>
+         </transition>
+      </state>
+      <state id="log_nupraz">
+         <onentry>
+            <icview:log text="action=entry, type=Log, name=LogData, id=log_nupraz, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            <log expr="'check number: ' + _ws.DBChecks[loopCount].CheckNumber" label="'Default'"/>
+            <log expr="'amount: ' +  _ws.DBChecks[loopCount].CheckAmount" label="'Default'"/>
+            <log expr="'date: ' +  _ws.DBChecks[loopCount].CheckDate" label="'Default'"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Log, name=LogData, id=log_nupraz, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="hasNoError()" target="play_mowxac">
+            <icview:log text="action=leg:default, type=Log, name=LogData, id=log_nupraz, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+         </transition>
+      </state>
+      <state id="calc_tucgof">
+         <onentry>
+            <icview:log text="action=entry, type=Calculate, name=IncrementCounter, id=calc_tucgof, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            <assign location="loopCount" expr="loopCount + 1"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Calculate, name=IncrementCounter, id=calc_tucgof, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true">
+               <icview:result name="loopCount" expr="loopCount"/>
+            </icview:log>
+         </onexit>
+         <transition cond="hasNoError()" target="iterativeReentry_while_xupzov">
+            <assign location="intv_eventName" expr="undefined"/>
+         </transition>
+      </state>
+      <state id="play_mowxac">
+         <initial>
+            <transition target="genericPlay_play_mowxac"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayData, id=play_mowxac, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayData, id=play_mowxac, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_mowxac">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayData__play_mowxac'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m7.wav'" fallbackText="'check number'"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr=" _ws.DBChecks[loopCount].CheckNumber"
+                                 type="'digits'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m8.wav'" fallbackText="'in the amount of'"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="  _ws.DBChecks[loopCount].CheckAmount"
+                                 type="'currencySkipCents'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m9.wav'" fallbackText="'was paid on'"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="_ws.DBChecks[loopCount].CheckDate"
+                                 type="'date'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="calc_tucgof">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayData, id=play_mowxac, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="calc_tucgof">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayData, id=play_mowxac, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="calc_tucgof">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayData, id=play_mowxac, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="play_sabvum">
+         <initial>
+            <transition target="genericPlay_play_sabvum"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=ThatsAll, id=play_sabvum, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=ThatsAll, id=play_sabvum, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_sabvum">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'ThatsAll__play_sabvum'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m10.wav'" fallbackText="'that\'s all i have'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="subroutineReturn_mumjih">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=ThatsAll, id=play_sabvum, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="subroutineReturn_mumjih">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=ThatsAll, id=play_sabvum, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="subroutineReturn_mumjih">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=ThatsAll, id=play_sabvum, document=/checklist/subroutines/voice/VS_LastSixChecks.scxml"/>
+            </transition>
+         </state>
+      </state>
+   </state>
+   <final id="documentExit"/>
+</scxml>

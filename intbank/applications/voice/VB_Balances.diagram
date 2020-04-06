@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:icxml="http://www.intervoice.com/icxml" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_RJ8Jwl8qEeq66fyZ_-5Oiw" type="Icxml" name="VB_Balances.diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_RJ8JzV8qEeq66fyZ_-5Oiw" type="2047" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_RJ8Jz18qEeq66fyZ_-5Oiw" type="5047">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_RJ8J0F8qEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:FunctionalBlockEntry" href="VB_Balances.icxml#_RJ8JzF8qEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RJ8Jzl8qEeq66fyZ_-5Oiw" x="24" y="24" width="0" height="0"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_uYbgIF_NEeq66fyZ_-5Oiw" type="2008" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_uYbgIl_NEeq66fyZ_-5Oiw" type="5008">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_uYbgI1_NEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:Play" href="VB_Balances.icxml#_uYVZgF_NEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uYbgIV_NEeq66fyZ_-5Oiw" x="144" y="24" width="0" height="0"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_Nf68ll_OEeq66fyZ_-5Oiw" type="2008" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Nf68mF_OEeq66fyZ_-5Oiw" type="5008">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Nf68mV_OEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:Play" href="VB_Balances.icxml#_Nf35QF_OEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Nf68l1_OEeq66fyZ_-5Oiw" x="264" y="24" width="0" height="0"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_Py3PkF_OEeq66fyZ_-5Oiw" type="2048" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Py3Pk1_OEeq66fyZ_-5Oiw" type="5048">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Py3PlF_OEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_Py3PkV_OEeq66fyZ_-5Oiw"/>
+    <element xmi:type="icxml:FunctionalBlockCall" href="VB_Balances.icxml#_Py0MQF_OEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Py3Pkl_OEeq66fyZ_-5Oiw" x="384" y="24" width="0" height="0"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_RJ8Jw18qEeq66fyZ_-5Oiw"/>
+  <element xmi:type="icxml:RootType" href="VB_Balances.icxml#_RJ8JwV8qEeq66fyZ_-5Oiw"/>
+  <edges xmi:type="notation:Connector" xmi:id="_MCKlIV_OEeq66fyZ_-5Oiw" type="4001" source="_RJ8JzV8qEeq66fyZ_-5Oiw" target="_uYbgIF_NEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_MCNocF_OEeq66fyZ_-5Oiw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_MCNocV_OEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_MCKlIl_OEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:DefaultConnection" href="VB_Balances.icxml#_MCKlIF_OEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MCKlI1_OEeq66fyZ_-5Oiw" points="[29, 0, -89, 0]$[89, 0, -29, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_OkyS4V_OEeq66fyZ_-5Oiw" type="4001" source="_uYbgIF_NEeq66fyZ_-5Oiw" target="_Nf68ll_OEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_OkyS5F_OEeq66fyZ_-5Oiw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_OkyS5V_OEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_OkyS4l_OEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:DefaultConnection" href="VB_Balances.icxml#_OkyS4F_OEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_OkyS41_OEeq66fyZ_-5Oiw" points="[29, 0, -89, 0]$[89, 0, -29, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_TfKiMF_OEeq66fyZ_-5Oiw" type="4001" source="_Nf68ll_OEeq66fyZ_-5Oiw" target="_Py3PkF_OEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_TfKiM1_OEeq66fyZ_-5Oiw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_TfKiNF_OEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_TfKiMV_OEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:DefaultConnection" href="VB_Balances.icxml#_TfHe4F_OEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_TfKiMl_OEeq66fyZ_-5Oiw" points="[29, 0, -89, 0]$[89, 0, -29, 0]"/>
+  </edges>
+</notation:Diagram>

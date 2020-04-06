@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Exporter version 1.0 at 2020-03-06 14:35:16.291 GMT-6--><!--Note: Components marked as 'debug' have been removed from the call flow.--><scxml xmlns:icview="http://www.intervoice.com/sce/icview"
+       xmlns:jms="http://www.intervoice.com/sce/action/jms"
+       xmlns:mim="http://www.intervoice.com/sce/action/mim"
+       xmlns:scripting="http://www.intervoice.com/sce/action/scripting"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       xmlns:process="http://www.intervoice.com/sce/action/process"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gtfns="http://www.intervoice.com/gtfns/1.0"
+       xmlns="http://www.w3.org/2007/02/scxml"
+       xmlns:icxml="http://www.intervoice.com/icxml"
+       xmlns:xmi="http://www.omg.org/XMI"
+       xmlns:intv="http://www.intervoice.com/scxml"
+       xmlns:vca="http://www.intervoice.com/sce/action/vca"
+       xmlns:ex="http://www.intervoice.com/exporter"
+       initialstate="documentEntry"
+       intv:worksheetscope="applications/voice/Worksheet.ws"
+       version="1.0">
+   <state id="documentEntry">
+      <initial>
+         <transition target="documentEntry_doLocalInit"/>
+      </initial>
+      <state id="documentEntry_doLocalInit">
+         <onentry>
+            <assign location="intv_appType" expr="undefined"/>
+            <rdotype:get xmlns:rdotype="http://www.intervoice.com/sce/action/rdotype"
+                         location="intv_appType"/>
+            <if cond="intv_appType == 'vca'">
+               <assign location="intv_appType" expr="'voice'"/>
+               <elseif cond="intv_appType == 'ccxml'"/>
+               <assign location="intv_appType" expr="'call'"/>
+               <elseif cond="intv_appType == 'UNKNOWN'"/>
+               <assign location="intv_appType" expr="'process'"/>
+            </if>
+         </onentry>
+         <transition target="blockEntry_kaqxom"/>
+      </state>
+      <datamodel><!--Variables from declaration block: _K_QJIl8qEeq66fyZ_-5Oiw--><data name="intv_appType" expr="undefined"/>
+         <data name="intv_eventName" expr="undefined"/>
+         <data name="intv_eventData" expr="undefined"/>
+         <data name="intv_noFieldsInitialized" expr="undefined"/>
+         <data name="intv_allFieldsInitialized" expr="undefined"/>
+         <data name="intv_atLeastOneSituationExecuted" expr="undefined"/>
+         <data name="intv_modalities" expr="undefined"/>
+      </datamodel>
+      <state id="blockEntry_kaqxom">
+         <onentry>
+            <icview:log text="action=entry, type=BlockEntry, name=, id=blockEntry_kaqxom, document=/intbank/applications/voice/VB_Goodbye.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=BlockEntry, name=, id=blockEntry_kaqxom, document=/intbank/applications/voice/VB_Goodbye.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="play_danviq"/>
+      </state>
+      <state id="play_danviq">
+         <initial>
+            <transition target="genericPlay_play_danviq"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayGoodbye, id=play_danviq, document=/intbank/applications/voice/VB_Goodbye.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayGoodbye, id=play_danviq, document=/intbank/applications/voice/VB_Goodbye.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_danviq">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayGoodbye__play_danviq'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m20.wav'"
+                                 fallbackText="'please call back later. goodbye.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="voiceEnd_kadzus">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayGoodbye, id=play_danviq, document=/intbank/applications/voice/VB_Goodbye.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="voiceEnd_kadzus">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayGoodbye, id=play_danviq, document=/intbank/applications/voice/VB_Goodbye.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="voiceEnd_kadzus">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayGoodbye, id=play_danviq, document=/intbank/applications/voice/VB_Goodbye.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="voiceEnd_kadzus">
+         <initial>
+            <transition target="doDisconnect_voiceEnd_kadzus"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=VoiceEnd, name=, id=voiceEnd_kadzus, document=/intbank/applications/voice/VB_Goodbye.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=VoiceEnd, name=, id=voiceEnd_kadzus, document=/intbank/applications/voice/VB_Goodbye.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="doDisconnect_voiceEnd_kadzus">
+            <onentry>
+               <vca:disconnect formName="'voiceEnd_kadzus'"/>
+               <scripting:script><![CDATA[
+						icsession.setProperty("intv_vca_disconnect", true);
+					]]></scripting:script>
+            </onentry>
+            <transition event="vca:*" target="activateHangup_voiceEnd_kadzus">
+               <icview:log text="action=leg:vca:*, type=VoiceEnd, name=, id=voiceEnd_kadzus, document=/intbank/applications/voice/VB_Goodbye.scxml"/>
+            </transition>
+         </state>
+         <state id="activateHangup_voiceEnd_kadzus">
+            <onentry>
+               <send target="'top'" event="'vca:hangup'"/>
+            </onentry>
+            <transition event="send.successful" target="documentExit"/>
+         </state>
+      </state>
+   </state>
+   <final id="documentExit"/>
+</scxml>

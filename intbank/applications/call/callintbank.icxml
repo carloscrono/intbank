@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<icxml:icxml xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gtfns="http://www.intervoice.com/gtfns/1.0" xmlns:icxml="http://www.intervoice.com/icxml" xmi:id="_I91-4V_WEeq66fyZ_-5Oiw" type="callType" gtfns:version="1.5.1.0">
+  <icxml:variables xmi:id="_I91-5F_WEeq66fyZ_-5Oiw">
+    <icxml:variable xmi:id="_I91-5V_WEeq66fyZ_-5Oiw" name="intv_appType"/>
+    <icxml:variable xmi:id="_I91-5l_WEeq66fyZ_-5Oiw" name="intv_eventName"/>
+    <icxml:variable xmi:id="_I91-51_WEeq66fyZ_-5Oiw" name="intv_eventData"/>
+  </icxml:variables>
+  <icxml:form xsi:type="icxml:CallBegin" xmi:id="_I91-6F_WEeq66fyZ_-5Oiw" id="callBegin_biplid" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_I95CMF_WEeq66fyZ_-5Oiw"/><icxml:default xmi:id="_I95COl_WEeq66fyZ_-5Oiw" target="_I95CMV_WEeq66fyZ_-5Oiw" label=""/><icxml:callBegin xmi:id="_I91-7V_WEeq66fyZ_-5Oiw"/></icxml:form>
+  <icxml:form xsi:type="icxml:Answer" xmi:id="_I95CMV_WEeq66fyZ_-5Oiw" id="answer_lobnas" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_I95COV_WEeq66fyZ_-5Oiw"/><icxml:default xmi:id="_I98FiV_WEeq66fyZ_-5Oiw" target="_I98FgF_WEeq66fyZ_-5Oiw" label=""/><icxml:events xmi:id="_I95CN1_WEeq66fyZ_-5Oiw">
+      <icxml:event xmi:id="_I95COF_WEeq66fyZ_-5Oiw" eventAlias="error" eventType="ccxml:connection.failed" eventHandler="Ignore" eventText="Error"/>
+    </icxml:events><icxml:answer xmi:id="_I95CNl_WEeq66fyZ_-5Oiw"/></icxml:form>
+  <icxml:form xsi:type="icxml:Dialog" xmi:id="_I98FgF_WEeq66fyZ_-5Oiw" id="dialog_qitcan" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_I98FiF_WEeq66fyZ_-5Oiw"/><icxml:default xmi:id="_I9_I1l_WEeq66fyZ_-5Oiw" target="_I9_I0F_WEeq66fyZ_-5Oiw" label=""/><icxml:events xmi:id="_I98Fhl_WEeq66fyZ_-5Oiw">
+      <icxml:event xmi:id="_I98Fh1_WEeq66fyZ_-5Oiw" eventAlias="error" eventType="ccxml:error.dialog.notstarted, ccxml:error.dialog.wrongstate" eventHandler="Ignore" eventText="Error"/>
+    </icxml:events><icxml:dialog xmi:id="_I98FhV_WEeq66fyZ_-5Oiw" src="'../voice/intbank_voice.diagram'" type="'application/voicexml+xml'" eventOnDialogTerminated="true"/></icxml:form>
+  <icxml:form xsi:type="icxml:CallEnd" xmi:id="_I9_I0F_WEeq66fyZ_-5Oiw" id="callEnd_hazsek" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_I9_I1V_WEeq66fyZ_-5Oiw"/></icxml:form>
+</icxml:icxml>

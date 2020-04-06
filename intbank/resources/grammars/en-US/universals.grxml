@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.w3.org/2001/06/grammar http://www.w3.org/TR/speech-grammar/grammar.xsd" xml:lang="en-US" mode="voice" root="root">
+	<rule id="root" scope="public">
+<one-of>
+		<item>
+		  <one-of>
+			<item >agent</item>
+			<item >c s r</item>
+			<item >customer service representative</item>
+			<item >operator</item>
+			<item >real person</item>
+		  </one-of>
+		  <tag> MEANING = 'operator'</tag>
+		</item>
+
+                <item>
+		  <one-of>
+			<item >start over</item>
+			<item >main menu</item>
+		  </one-of>
+		  <tag> MEANING = 'mainmenu'</tag>
+		</item>
+
+</one-of>
+	</rule>
+
+
+</grammar>

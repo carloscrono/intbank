@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<icxml:icxml xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gtfns="http://www.intervoice.com/gtfns/1.0" xmlns:icxml="http://www.intervoice.com/icxml" xmi:id="_K_NF0V8qEeq66fyZ_-5Oiw" type="voiceBlockType" gtfns:version="1.5.1.0">
+  <icxml:variables xmi:id="_K_QJIl8qEeq66fyZ_-5Oiw">
+    <icxml:variable xmi:id="_K_QJI18qEeq66fyZ_-5Oiw" name="intv_appType"/>
+    <icxml:variable xmi:id="_K_QJJF8qEeq66fyZ_-5Oiw" name="intv_eventName"/>
+    <icxml:variable xmi:id="_K_QJJV8qEeq66fyZ_-5Oiw" name="intv_eventData"/>
+    <icxml:variable xmi:id="_K_QJJl8qEeq66fyZ_-5Oiw" name="intv_noFieldsInitialized"/>
+    <icxml:variable xmi:id="_K_QJJ18qEeq66fyZ_-5Oiw" name="intv_allFieldsInitialized"/>
+    <icxml:variable xmi:id="_K_QJKF8qEeq66fyZ_-5Oiw" name="intv_atLeastOneSituationExecuted"/>
+    <icxml:variable xmi:id="_K_QJKV8qEeq66fyZ_-5Oiw" name="intv_modalities"/>
+  </icxml:variables>
+  <icxml:form xsi:type="icxml:BlockEntry" xmi:id="_K_QJKl8qEeq66fyZ_-5Oiw" id="blockEntry_kaqxom" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:blockEntry xmi:id="_K_QJL18qEeq66fyZ_-5Oiw" description="Description - ..."/><icxml:comment xmi:id="_K_QJMF8qEeq66fyZ_-5Oiw"/><icxml:default xmi:id="_SgWMsF_SEeq66fyZ_-5Oiw" target="_OfDhgF_SEeq66fyZ_-5Oiw" label=""/></icxml:form>
+  <icxml:form xsi:type="icxml:Play" xmi:id="_OfDhgF_SEeq66fyZ_-5Oiw" id="play_danviq" gtfns:name="PlayGoodbye" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:play xmi:id="_OfGk0F_SEeq66fyZ_-5Oiw" loopCount="1"><icxml:playPromptGroup xmi:id="_OfGk0V_SEeq66fyZ_-5Oiw" cond="true" presentAs="'sequence'" bargeIn="true" auxPrompt=""><icxml:prompt xmi:id="_OfGk0l_SEeq66fyZ_-5Oiw" cond="true" expr="'m20.wav'" fallbackText="'please call back later. goodbye.'" type="'messageID'"/></icxml:playPromptGroup></icxml:play><icxml:comment xmi:id="_OfGk1V_SEeq66fyZ_-5Oiw"/><icxml:default xmi:id="_TFpSIF_SEeq66fyZ_-5Oiw" target="_RxSHQF_SEeq66fyZ_-5Oiw" label=""/><icxml:events xmi:id="_OfGk01_SEeq66fyZ_-5Oiw">
+      <icxml:event xmi:id="_OfGk1F_SEeq66fyZ_-5Oiw" eventAlias="error" eventType="vca:error.general, vca:error.unhandled" eventHandler="Ignore" eventText="Error"/>
+    </icxml:events></icxml:form>
+  <icxml:form xsi:type="icxml:VoiceEnd" xmi:id="_RxSHQF_SEeq66fyZ_-5Oiw" id="voiceEnd_kadzus" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:voiceEnd xmi:id="_RxVKkF_SEeq66fyZ_-5Oiw"/><icxml:comment xmi:id="_RxVKkV_SEeq66fyZ_-5Oiw"/></icxml:form>
+</icxml:icxml>

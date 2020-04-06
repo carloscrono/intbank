@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<domains xmlns="http://www.intervoice.com/schema/property/3.0" >
+	<audit savedby="junit" timestamp="Mon July 18 14:28:00 CDT 2016" version="3.0.1.0" />
+	<domain id="com.intervoice.scxml.runtime.visual" domain-type="SERVICE" allow-add="false">
+        <description value="Visual Resource Configuration" />
+        <display-name value="Visual Resource"/>
+
+        <property key="visualBaseURL">
+            <app-value value="/%webappname%/resources/visual" />
+            <default-value value="/%webappname%/resources/visual" />
+            <description value="This attribute specifies the location (URL) of application visual overlay files on a Web server." />
+        </property>
+        <property key="visualNoInputTimeout">
+            <app-value value="600000" />
+            <default-value value="600000" />
+            <description value="This attribute specifies max waiting period for user input in visual page in milliseconds" />
+        </property>
+        <property key="registrationTimeToLive">
+            <app-value value="3600000" />
+            <default-value value="3600000" />
+            <description value="This attribute specifies time after which the visual registration will expire in milliseconds" />
+        </property>
+        <property key="visualUrlTimeout">
+            <app-value value="300000" />
+            <default-value value="300000" />
+            <description value="This attribute specifies timeout of the initial visual URL in milliseconds" />
+        </property>
+	</domain> 
+</domains>

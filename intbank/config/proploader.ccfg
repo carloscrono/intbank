@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domains xmlns="http://www.intervoice.com/schema/property/3.0">
+  <audit savedby="Property Loader Editor" timestamp="Fri Mar 06 12:06:34 CST 2020" version="3.0.0.0"/>
+  <domain-ref url="config/bh/bushours.bh"/>
+  <domain-ref url="config/tt/crstabl.tt"/>
+</domains>

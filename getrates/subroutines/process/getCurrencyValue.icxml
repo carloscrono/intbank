@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<icxml:icxml xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gtfns="http://www.intervoice.com/gtfns/1.0" xmlns:icxml="http://www.intervoice.com/icxml" xmi:id="_5d8314e0_98cb_4746_a1dc_3151f96be1a9" type="processSubroutineType" gtfns:version="1.5.1.0">
+  <icxml:variables xmi:id="_e6dc121f_bff3_4db1_b10a_c01dc97de1f1">
+    <icxml:variable xmi:id="_8426b04d_0048_40ac_89ed_98d8abce779b" name="intv_appType"/>
+    <icxml:variable xmi:id="_f84518de_5f59_4f4f_a478_99cbd86f75c5" name="intv_eventName"/>
+    <icxml:variable xmi:id="_160a751e_e6e6_4f48_bd0f_4e918fa07218" name="intv_eventData"/>
+    <icxml:variable xmi:id="_49a18b55_c43d_4564_8556_c0e03621433d" name="fromCurrency"/>
+    <icxml:variable xmi:id="_8a49a5a7_0935_4b41_a331_bc0c49c29b2c" name="toCurrency"/>
+    <icxml:variable xmi:id="_ea0d0c38_8fc1_4657_a9c5_12c507809622" name="result"/>
+    <icxml:variable xmi:id="_0e9d9a79_dad0_4e9f_b548_712f6c43aece" name="error_reason"/>
+  </icxml:variables>
+  <icxml:form xsi:type="icxml:SubroutineEntry" xmi:id="_054d32fe_ceaf_4d3e_b44a_dad02eea75c3" id="subroutineEntry_zonkag" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_daa9fcf0_dbb9_4ce9_b6d2_6b57e0e8fdaa"/>
+		
+		
+		
+	<icxml:default xmi:id="_fa8c0f4c_0fd0_4dda_a20f_21208e4b9b9d" target="_0e04fd75_92e0_480b_a8c4_0be188c8d255" label=""/><icxml:subroutineEntryData xmi:id="_63116959_6208_4d82_87b9_e04eab14dd68" description="Method description for getCurrencyValue, Return type is double">
+
+			
+
+			
+			
+			
+		<icxml:parameter xmi:id="_7d72fb9c_ef35_4dc0_8012_b7ed9ab61ccc" name="fromCurrency" defaultValue="undefined" comment="Type is java.lang.String"/><icxml:parameter xmi:id="_1bb2afb9_5bc1_4085_8f2a_fa10b0391271" name="toCurrency" defaultValue="undefined" comment="Type is java.lang.String"/><icxml:returnLabel xmi:id="_901f3411_07a6_4e28_b4ce_5138d8f510b0" label="success"/><icxml:returnLabel xmi:id="_8359b064_47b4_4f94_8ce7_e99eaa497ecc" label="error"/></icxml:subroutineEntryData></icxml:form>
+  <icxml:form xsi:type="icxml:SubroutineReturn" xmi:id="_22202bb2_b21d_436d_b357_1e5a2562456c" id="subroutineReturn_qonmel" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_163f6b31_cf20_416e_b287_f46c94274f61"/>
+		
+		
+	<icxml:subroutineReturn xmi:id="_f0f49848_085d_44b8_9fd6_bd34dd602a92" label="success" returnValue="result"/></icxml:form>
+  <icxml:form xsi:type="icxml:Script" xmi:id="_69098dd7_9283_4d13_9800_c82abc834e7a" id="script_zepfij" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:script xmi:id="_08e93fed_1072_4c77_9fa6_cdd0d58b94d9" inline="true"><icxml:scriptInline xmi:id="_e268af2b_3366_4f21_a597_dad717220f29"><![CDATA[
+var jmxHelper = Packages.com.intervoice.scxml.http.actions.JMXBeanWebServices.getHelper('CurrencyConvertorService', 'getCurrencyValue');
+try {
+	Packages.com.intervoice.ws.client.Utility.initializeSSLProperties(icserviceconfig);
+	var repoPath = Packages.com.intervoice.ws.client.Utility.getRepositoryLocation(icsession.getProperty("appName"));
+	var axis2xml = repoPath+"/conf/axis2.xml";	
+	var configurationContext = Packages.com.intervoice.ws.client.ConfigurationContextInstance.getInstance(repoPath,axis2xml).getAxis2ConfigurationContext();
+	var stub = new Packages.getrates_ws.CurrencyConvertorServiceStub(configurationContext);
+
+	if (_ws.__CurrencyConvertorService_authUsername != undefined && _ws.__CurrencyConvertorService_authPassword != undefined) {
+		var authenticator = new Packages.org.apache.axis2.transport.http.impl.httpclient4.HttpTransportPropertiesImpl.Authenticator();
+		authenticator.setUsername(_ws.__CurrencyConvertorService_authUsername);
+		authenticator.setPassword(_ws.__CurrencyConvertorService_authPassword);
+		stub._getServiceClient().getOptions().setProperty(Packages.org.apache.axis2.transport.http.HTTPConstants.AUTHENTICATE,authenticator);
+	}
+	
+	if (_ws.__CurrencyConvertorService_timeout != undefined)
+		stub._getServiceClient().getOptions().setTimeOutInMilliSeconds(_ws.__CurrencyConvertorService_timeout);
+	if (_ws.__CurrencyConvertorService_endpoint != undefined)
+		stub._getServiceClient().getOptions().setTo(new Packages.org.apache.axis2.addressing.EndpointReference(_ws.__CurrencyConvertorService_endpoint));
+		
+	if (_ws.__CurrencyConvertorService_customHeader != undefined) {
+        var soapFactory  = Packages.com.intervoice.ws.client.Utility.getSOAPFactory( stub._getServiceClient().getOptions().getSoapVersionURI());
+        for (var i=0; i < _ws.__CurrencyConvertorService_customHeader.length; i++) {
+            var soapHeaderBlock = Packages.org.apache.axiom.om.util.ElementHelper.toSOAPHeaderBlock(_ws.__CurrencyConvertorService_customHeader[i], soapFactory);
+            stub._getServiceClient().addHeader(soapHeaderBlock);
+        }
+	}
+	
+	result = stub.getCurrencyValue(_scxml.parameters.fromCurrency,_scxml.parameters.toCurrency);
+	
+	stub.cleanup();
+}
+catch(e)
+{
+	error_reason = e;
+}
+jmxHelper.done(error_reason != undefined);
+]]></icxml:scriptInline></icxml:script><icxml:comment xmi:id="_e51eaec8_f063_4ade_8a04_e3bf034a6a3f"/>
+		
+		
+		
+	<icxml:default xmi:id="_ff2e7600_fc6b_447c_bda6_38089a6e5a20" target="_ed60fe89_44a4_4ad5_ba2b_8ffe7f4bc242" label=""/></icxml:form>
+  <icxml:form xsi:type="icxml:If" xmi:id="_ed60fe89_44a4_4ad5_ba2b_8ffe7f4bc242" id="decision_cozsuq" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:if xmi:id="_7fcb9a89_10c1_4ee6_a351_0e0537b7f13e" elseLabel="error">
+			
+		<icxml:ifValue xmi:id="_4ff90f36_4f2b_47fc_bd78_27a773d6b0ae" expr="error_reason == undefined" label="success"/></icxml:if><icxml:comment xmi:id="_22dbfd2d_71d1_4181_95fd_e61d9f73eca0"/>
+		
+		
+		
+		
+	<icxml:default xmi:id="_02d84c4c_0613_462a_98d6_b0f51fd952cd" target="_f0d4c639_43a6_4d72_8fad_ea2b53778fbb" gtfns:name="error" label="error"/><icxml:conditional xmi:id="_f955766f_8964_4f89_ada1_61466361246a" target="_22202bb2_b21d_436d_b357_1e5a2562456c" gtfns:name="success" label="success"/></icxml:form>
+  <icxml:form xsi:type="icxml:SubroutineReturn" xmi:id="_f0d4c639_43a6_4d72_8fad_ea2b53778fbb" id="subroutineReturn_vagvep" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_352d22b0_bc1d_4fb3_ab10_1aae6dc37445"/>
+		
+		
+	<icxml:subroutineReturn xmi:id="_d98df22f_441b_4f0e_bb30_24440afb2853" label="error" returnValue="error_reason"/></icxml:form>
+  <icxml:form xsi:type="icxml:Calculate" xmi:id="_0e04fd75_92e0_480b_a8c4_0be188c8d255" id="calc_galzor" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:calculate xmi:id="_0b7a004d_80eb_4301_b4e4_9bb6ac2488a2">
+		
+			
+		<icxml:calculateValue xmi:id="_d35e81fc_4bf1_4c78_8e36_e0a392c2ec22" result="result" expr="undefined"/><icxml:calculateValue xmi:id="_d72bf53f_26a6_42dc_b581_3c9cfddcb3cd" result="error_reason" expr="undefined"/></icxml:calculate><icxml:comment xmi:id="_018196d2_add4_41ab_961c_1beeadd8ff72"/>
+		
+		
+		
+	<icxml:default xmi:id="_e3e71e9d_e272_4040_ab8c_4e5c4b8ab2a9" target="_69098dd7_9283_4d13_9800_c82abc834e7a" label=""/></icxml:form>
+</icxml:icxml>

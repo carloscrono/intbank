@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Exporter version 1.0 at 2020-03-06 14:35:18.067 GMT-6--><!--Note: Components marked as 'debug' have been removed from the call flow.--><scxml xmlns:icview="http://www.intervoice.com/sce/icview"
+       xmlns:jms="http://www.intervoice.com/sce/action/jms"
+       xmlns:mim="http://www.intervoice.com/sce/action/mim"
+       xmlns:scripting="http://www.intervoice.com/sce/action/scripting"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       xmlns:process="http://www.intervoice.com/sce/action/process"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gtfns="http://www.intervoice.com/gtfns/1.0"
+       xmlns="http://www.w3.org/2007/02/scxml"
+       xmlns:icxml="http://www.intervoice.com/icxml"
+       xmlns:xmi="http://www.omg.org/XMI"
+       xmlns:intv="http://www.intervoice.com/scxml"
+       xmlns:vca="http://www.intervoice.com/sce/action/vca"
+       xmlns:ex="http://www.intervoice.com/exporter"
+       initialstate="documentEntry"
+       intv:worksheetscope="getrates/subroutines/process/Worksheet.ws"
+       version="1.0">
+   <state id="documentEntry">
+      <initial>
+         <transition target="documentEntry_doLocalInit"/>
+      </initial>
+      <state id="documentEntry_doLocalInit">
+         <onentry>
+            <assign location="intv_appType" expr="undefined"/>
+            <rdotype:get xmlns:rdotype="http://www.intervoice.com/sce/action/rdotype"
+                         location="intv_appType"/>
+            <if cond="intv_appType == 'vca'">
+               <assign location="intv_appType" expr="'voice'"/>
+               <elseif cond="intv_appType == 'ccxml'"/>
+               <assign location="intv_appType" expr="'call'"/>
+               <elseif cond="intv_appType == 'UNKNOWN'"/>
+               <assign location="intv_appType" expr="'process'"/>
+            </if>
+         </onentry>
+         <transition target="documentEntry_initialize"/>
+      </state>
+      <state id="documentEntry_initialize">
+         <initial>
+            <transition target="getInitializeStatus_documentEntry_initialize"/>
+         </initial>
+         <datamodel>
+            <data name="src" expr="null"/>
+         </datamodel>
+         <state id="getInitializeStatus_documentEntry_initialize">
+            <transition cond="_ws.intv_isInitialized == undefined"
+                        target="doInitialize_documentEntry_initialize">
+               <assign location="_ws.intv_isInitialized" expr="true"/>
+            </transition>
+            <transition cond="true" target="subroutineEntry_zonkag"/>
+         </state>
+         <state id="doInitialize_documentEntry_initialize">
+            <onentry>
+               <assign location="_ws.intv_libraryList" expr="new Array();"/>
+               <assign location="_ws.intv_librarySize" expr="0;"/>
+               <assign location="src"
+                       expr="'/getrates/subroutines/' + 'process' + '/AsyncEvent.scxml'"/>
+               <assign location="intv_eventName" expr="'Initialize'"/>
+               <assign location="intv_eventData" expr="undefined"/>
+            </onentry>
+            <invoke targettype="x-scxml-component" srcexpr="src">
+               <param name="intv_eventName"/>
+               <param name="intv_eventData"/>
+            </invoke>
+            <transition event="doInitialize_documentEntry_initialize.invoke.done"
+                        target="subroutineEntry_zonkag"/>
+         </state>
+      </state>
+      <datamodel><!--Variables from declaration block: _dc128c81_c09b_45aa_b5ff_8116e0fe03ab--><data name="intv_appType" expr="undefined"/>
+         <data name="intv_eventName" expr="undefined"/>
+         <data name="intv_eventData" expr="undefined"/>
+         <data name="timeout" expr="undefined"/>
+      </datamodel>
+      <state id="subroutineEntry_zonkag">
+         <onentry>
+            <assign location="intv_eventName" expr="undefined"/>
+            <if cond="_scxml.parameters.timeout == undefined">
+               <assign location="timeout" expr="undefined"/>
+               <else/>
+               <assign location="timeout" expr="_scxml.parameters.timeout"/>
+            </if>
+            <icview:log text="action=entry, type=SubroutineEntry, name=, id=subroutineEntry_zonkag, document=/getrates/subroutines/process/_setTimeout.scxml">
+               <icview:param name="timeout" expr="undefined"/>
+            </icview:log>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=SubroutineEntry, name=, id=subroutineEntry_zonkag, document=/getrates/subroutines/process/_setTimeout.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="script_zepfij"/>
+      </state>
+      <state id="subroutineReturn_qonmel">
+         <onentry>
+            <icview:log text="action=entry, type=SubroutineReturn, name=, id=subroutineReturn_qonmel, document=/getrates/subroutines/process/_setTimeout.scxml"/>
+            <send target="'parent'" event="'success'"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=SubroutineReturn, name=, id=subroutineReturn_qonmel, document=/getrates/subroutines/process/_setTimeout.scxml"
+                        nolog="true">
+               <icview:result name="label" value="success"/>
+            </icview:log>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+      <state id="script_zepfij">
+         <onentry intv:abortonerror="true">
+            <icview:log text="action=entry, type=Script, name=, id=script_zepfij, document=/getrates/subroutines/process/_setTimeout.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+            <scripting:script><![CDATA[
+
+
+			_ws.__CurrencyConvertorService_timeout = _scxml.parameters.timeout;
+			
+]]></scripting:script>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Script, name=, id=script_zepfij, document=/getrates/subroutines/process/_setTimeout.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="hasNoError()" target="subroutineReturn_qonmel"/>
+      </state>
+   </state>
+   <final id="documentExit"/>
+</scxml>

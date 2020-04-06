@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<icxml:icxml xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gtfns="http://www.intervoice.com/gtfns/1.0" xmlns:icxml="http://www.intervoice.com/icxml" xmi:id="_78e07a33_9115_41fe_92dd_36b5ec1b8d26" type="processSubroutineType" gtfns:version="1.5.1.0">
+  <icxml:variables xmi:id="_7e5bdc55_56c9_4136_bb6c_705ed20b55ba">
+    <icxml:variable xmi:id="_234109c1_abb2_4357_8425_5e80ba17cdb1" name="intv_appType"/>
+    <icxml:variable xmi:id="_d01ac1eb_a45c_4451_a541_06ee6605722c" name="intv_eventName"/>
+    <icxml:variable xmi:id="_209be2de_8499_4a94_b11e_7beea98c4b2b" name="intv_eventData"/>
+    <icxml:variable xmi:id="_7ca7f5ac_ff4d_47ea_b9fa_4e567581831f" name="authUsername"/>
+    <icxml:variable xmi:id="_3f71e4f1_084f_4162_a3d6_fe82c64d47bb" name="authPassword"/>
+  </icxml:variables>
+  <icxml:form xsi:type="icxml:SubroutineEntry" xmi:id="_6c8345b6_bb1f_4b30_b822_64e28b504e1b" id="subroutineEntry_zonkag" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_18c6be8d_b489_43f8_a72b_7e7f8d29deed"/>
+		
+		
+		
+	<icxml:default xmi:id="_61a05264_4f2d_476a_a366_f59d2454b167" target="_36dc1ce3_26e3_4f12_9909_19b3d98d4832" label=""/><icxml:subroutineEntryData xmi:id="_c172c0f1_ae22_4c2c_8ff5_4944c26b57c0" description="Method description for _setAuthenticator, Return type is not applicable, authUsername and authPassword are of type String">
+
+			
+
+			
+			
+		<icxml:parameter xmi:id="_97625f79_5a85_4560_a553_7b5084b9b078" name="authUsername" defaultValue="undefined" comment="Type is String"/><icxml:parameter xmi:id="_64a17830_8f45_4962_bca2_763796e3f470" name="authPassword" defaultValue="undefined" comment="Type is String"/><icxml:returnLabel xmi:id="_030424e5_3456_40a2_b0e4_30a185900219" label="success"/></icxml:subroutineEntryData></icxml:form>
+  <icxml:form xsi:type="icxml:SubroutineReturn" xmi:id="_94af77ac_b642_48fd_92e0_f660cc7fd361" id="subroutineReturn_qonmel" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_79f3f555_1e30_4471_a166_f2b620d66882"/>
+		
+		
+	<icxml:subroutineReturn xmi:id="_9df0703e_84da_4281_8dea_5983adc1e20c" label="success"/></icxml:form>
+  <icxml:form xsi:type="icxml:Script" xmi:id="_36dc1ce3_26e3_4f12_9909_19b3d98d4832" id="script_zepfij" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:script xmi:id="_d23e8525_931a_46d1_9349_08c09b28129a" inline="true"><icxml:scriptInline xmi:id="_d3a0058d_cc25_4ed3_9695_39bbb6ff1510"><![CDATA[
+
+			_ws.__CurrencyConvertorService_authUsername = _scxml.parameters.authUsername;
+
+			_ws.__CurrencyConvertorService_authPassword = _scxml.parameters.authPassword;
+			]]></icxml:scriptInline></icxml:script><icxml:comment xmi:id="_0930fa10_bcc8_46ef_b3c5_507e9f8a3c34"/>
+		
+		
+		
+	<icxml:default xmi:id="_e319af4b_4a74_4948_8f6d_ec86a54fbc04" target="_94af77ac_b642_48fd_92e0_f660cc7fd361" label=""/></icxml:form>
+</icxml:icxml>

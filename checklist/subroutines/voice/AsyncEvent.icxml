@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Application Upgrader version 1.5.2.201004121945 at 2010-06-23 15:44:14.047 GMT-5-->
+<!--Created by Application Upgrader version 1.5.0.201001191852 at 2010-02-18 13:59:19.991 GMT-6-->
+<icxml:icxml xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gtfns="http://www.intervoice.com/gtfns/1.0" xmlns:icxml="http://www.intervoice.com/icxml" xmi:id="_s3Y1ETl8Ed6weaDUAx_gDA" type="voiceAsyncEventType" gtfns:version="1.5.1.0">
+  <icxml:variables xmi:id="_s3Y1Ejl8Ed6weaDUAx_gDA">
+    <icxml:variable xmi:id="_A2010218135919.931" name="intv_noFieldsInitialized"/>
+    <icxml:variable xmi:id="_B2010218135919.931" name="intv_allFieldsInitialized"/>
+    <icxml:variable xmi:id="_C2010218135919.931" name="intv_atLeastOneSituationExecuted"/>
+    <icxml:variable xmi:id="_D2010218135919.931" name="intv_modalities"/>
+    <icxml:variable xmi:id="_s3Y1Ezl8Ed6weaDUAx_gDA" name="intv_eventName"/>
+    <icxml:variable xmi:id="_s3Y1FDl8Ed6weaDUAx_gDA" name="intv_eventData"/>
+    <icxml:variable xmi:id="_s3Y1FTl8Ed6weaDUAx_gDA" name="intv_appType"/>
+  </icxml:variables>
+  <icxml:form xsi:type="icxml:EventProcess" xmi:id="_s3Y1Fjl8Ed6weaDUAx_gDA" worksheetScope="" id="eventProcess_nejhuw" gtfns:name="AsyncHanger" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:eventProcess xmi:id="_s3Y1Fzl8Ed6weaDUAx_gDA">
+         
+         
+      <icxml:eventHandler xmi:id="_s3Y1GDl8Ed6weaDUAx_gDA" eventAction="CleanupAction" eventName="Cleanup"/><icxml:eventHandler xmi:id="_s3e7sDl8Ed6weaDUAx_gDA" eventAction="InitializeAction" eventName="Initialize"/></icxml:eventProcess><icxml:comment xmi:id="_s3Y1GTl8Ed6weaDUAx_gDA"/>
+      
+      
+      
+      
+   <icxml:conditional xmi:id="_s3xPkDl8Ed6weaDUAx_gDA" target="_s3e7sTl8Ed6weaDUAx_gDA" gtfns:name="CleanupAction" label="CleanupAction"/><icxml:conditional xmi:id="_s4Djcjl8Ed6weaDUAx_gDA" target="_s33WMjl8Ed6weaDUAx_gDA" gtfns:name="InitializeAction" label="InitializeAction"/></icxml:form>
+  <icxml:form xsi:type="icxml:Cleanup" xmi:id="_s3e7sTl8Ed6weaDUAx_gDA" worksheetScope="" id="cleanup_bexsuq" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_s3e7szl8Ed6weaDUAx_gDA"/>
+      
+      
+      
+   <icxml:default xmi:id="_s33WMTl8Ed6weaDUAx_gDA" target="_s3xPkTl8Ed6weaDUAx_gDA" label=""/><icxml:eventAction xmi:id="_s3e7sjl8Ed6weaDUAx_gDA" action="CleanupAction"/></icxml:form>
+  <icxml:form xsi:type="icxml:CleanupEnd" xmi:id="_s3xPkTl8Ed6weaDUAx_gDA" worksheetScope="" id="cleanupend_sifsot" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_s33WMDl8Ed6weaDUAx_gDA"/>
+      
+   </icxml:form>
+  <icxml:form xsi:type="icxml:InitializeSession" xmi:id="_s33WMjl8Ed6weaDUAx_gDA" worksheetScope="" id="initialize_nondos" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_s4DjcTl8Ed6weaDUAx_gDA"/>
+      
+      
+      
+   <icxml:default xmi:id="_s4DjdTl8Ed6weaDUAx_gDA" target="_s4Djczl8Ed6weaDUAx_gDA" label=""/><icxml:eventAction xmi:id="_s4DjcDl8Ed6weaDUAx_gDA" action="InitializeAction"/></icxml:form>
+  <icxml:form xsi:type="icxml:InitializeEndSession" xmi:id="_s4Djczl8Ed6weaDUAx_gDA" worksheetScope="" id="initializeend_kawqiw" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_s4DjdDl8Ed6weaDUAx_gDA"/>
+      
+   </icxml:form>
+</icxml:icxml>

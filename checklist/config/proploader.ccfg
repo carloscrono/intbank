@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Application Upgrader version 1.5.0.201001191852 at 2010-02-18 13:59:19.400 GMT-6--><domains xmlns="http://www.intervoice.com/schema/property/3.0">
+   <audit version="3.0.0.0" savedby="Property Loader Editor"
+          timestamp="Tue May 05 09:53:24 CDT 2009"/>
+   <domain-ref url="subroutines/voice/Worksheet.ws"/>
+</domains>

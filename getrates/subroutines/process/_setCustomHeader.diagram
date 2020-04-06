@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:icxml="http://www.intervoice.com/icxml" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_zBuSYF_AEeq66fyZ_-5Oiw" type="Icxml" measurementUnit="Pixel">
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_zBuSYV_AEeq66fyZ_-5Oiw"/>
+  <element xmi:type="icxml:RootType" href="_setCustomHeader.icxml#_c909a8ad_23ec_4dbe_8a3d_193af3a94632"/>
+</notation:Diagram>

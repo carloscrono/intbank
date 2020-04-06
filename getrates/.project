@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>getrates</name>
+	<comment>IC_PROJECT_VERSION=3.0.0.0,IC_PROJECT_TYPE=WS Library,WS_FRAMEWORK=axis2,WS_FRAMEWORK_VERSION=1.7.4,WS_DATABINDING=adb,WS_POLICY_SUPPORT=false,packageName=getrates_ws,WS_UPDATE_REV=1,</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.intervoice.gtf.nature.icxmlLibraryBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.intervoice.gtf.nature.icxmlLibraryValidationBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.intervoice.gtf.nature.icxmlLibraryNature</nature>
+	</natures>
+</projectDescription>

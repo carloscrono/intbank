@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Application Upgrader version 1.5.2.201004121945 at 2010-06-23 15:44:14.110 GMT-5-->
+<!--Created by Application Upgrader version 1.5.0.201001191852 at 2010-02-18 13:59:21.022 GMT-6-->
+<icxml:icxml xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gtfns="http://www.intervoice.com/gtfns/1.0" xmlns:icxml="http://www.intervoice.com/icxml" xmi:id="_sqZh8Tl8Ed6weaDUAx_gDA" type="voiceSubroutineType" gtfns:version="1.5.1.0">
+  <icxml:variables xmi:id="_swCP4Dl8Ed6weaDUAx_gDA">
+    <icxml:variable xmi:id="_A2010218135920.942" name="intv_noFieldsInitialized"/>
+    <icxml:variable xmi:id="_B2010218135920.942" name="intv_allFieldsInitialized"/>
+    <icxml:variable xmi:id="_C2010218135920.942" name="intv_atLeastOneSituationExecuted"/>
+    <icxml:variable xmi:id="_D2010218135920.942" name="intv_modalities"/>
+    <icxml:variable xmi:id="_swCP4Tl8Ed6weaDUAx_gDA" name="intv_eventName"/>
+    <icxml:variable xmi:id="_swCP4jl8Ed6weaDUAx_gDA" name="intv_eventData"/>
+    <icxml:variable xmi:id="_swCP4zl8Ed6weaDUAx_gDA" name="intv_appType"/>
+    <icxml:variable xmi:id="_kiud8DmBEd6Rc4Dz0_sJgA" name="accountNumber"/>
+    <icxml:variable xmi:id="_kRtxADmCEd6Rc4Dz0_sJgA" name="numberOfRecords"/>
+    <icxml:variable xmi:id="_lD9GQDmCEd6Rc4Dz0_sJgA" name="DBError"/>
+    <icxml:variable xmi:id="_Q0z08DmZEd6Rc4Dz0_sJgA" name="loopCount"/>
+  </icxml:variables>
+  <icxml:form xsi:type="icxml:SubroutineEntry" xmi:id="_swOdIDl8Ed6weaDUAx_gDA" worksheetScope="" id="subroutineEntry_rotzuz" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_szSYMTl8Ed6weaDUAx_gDA"/>
+      
+      
+      
+      
+      
+      
+   <icxml:default xmi:id="_yS7VEDmaEd6Rc4Dz0_sJgA" target="_V1HkkDmCEd6Rc4Dz0_sJgA" label=""/><icxml:subroutineEntryData xmi:id="_szMRkDl8Ed6weaDUAx_gDA" description="This subroutine accesses the bankfund database and plays back the last 6 checks returned.">
+         
+         
+         
+         
+         
+         
+      <icxml:parameter xmi:id="_20bF8Dl8Ed6weaDUAx_gDA" name="accountNumber" defaultValue="undefined" comment="type is varchar - string"/><icxml:returnLabel xmi:id="_szSYMDl8Ed6weaDUAx_gDA" label="Success"/><icxml:returnLabel xmi:id="_uAgxkDmCEd6Rc4Dz0_sJgA" label="Error"/></icxml:subroutineEntryData></icxml:form>
+  <icxml:form xsi:type="icxml:SubroutineReturn" xmi:id="_szSYMjl8Ed6weaDUAx_gDA" worksheetScope="" id="subroutineReturn_mumjih" gtfns:name="Success" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_szelcTl8Ed6weaDUAx_gDA"/>
+      
+      
+      
+      
+   <icxml:subroutineReturn xmi:id="_szelcDl8Ed6weaDUAx_gDA" label="Success"/></icxml:form>
+  <icxml:form xsi:type="icxml:DatabaseRetrieve" xmi:id="_V1HkkDmCEd6Rc4Dz0_sJgA" worksheetScope="" id="databaseRetrieve_hurtet" gtfns:name="AccessChecksTable" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:databaseRetrieve xmi:id="_V5sikDmCEd6Rc4Dz0_sJgA" dataSource="'java:/comp/env/BankDBConn'" sql="'SELECT * FROM Checks WHERE AccountNum = ?'" resultVariable="_ws.DBChecks" errorVariable="DBError" timeout="7" rowCountVariable="numberOfRecords">
+         
+         
+      <icxml:databaseParameter xmi:id="_lE0B4DmCEd6Rc4Dz0_sJgA" expr="accountNumber" mode="" type="'VARCHAR'"/></icxml:databaseRetrieve><icxml:comment xmi:id="_V5sikzmCEd6Rc4Dz0_sJgA"/>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+   <icxml:default xmi:id="_SkRAYDmZEd6Rc4Dz0_sJgA" target="_E_i3IDmZEd6Rc4Dz0_sJgA" label=""/><icxml:events xmi:id="_V5sikTmCEd6Rc4Dz0_sJgA">
+      <icxml:event xmi:id="_V5sikjmCEd6Rc4Dz0_sJgA" eventAlias="error" eventType="error.action.com.intervoice.scxml.db, error.action.com.intervoice.scxml.db.sql, error.action.com.intervoice.scxml.db.naming, error.action.com.intervoice.scxml.db.param, error.action.com.intervoice.scxml.db.internal" eventHandler="Inline" eventText="Error"/>
+    </icxml:events><icxml:inline xmi:id="_6JG5EDmYEd6Rc4Dz0_sJgA" target="_rra3kDmEEd6Rc4Dz0_sJgA" gtfns:name="Error" label="error"/></icxml:form>
+  <icxml:form xsi:type="icxml:Log" xmi:id="_rra3kDmEEd6Rc4Dz0_sJgA" worksheetScope="" id="log_wisxay" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:log xmi:id="_rrg_MDmEEd6Rc4Dz0_sJgA" logTo="'Default'">
+         
+         
+         
+         
+         
+         
+         
+         
+      <icxml:logValue xmi:id="_rrg_MTmEEd6Rc4Dz0_sJgA" expr="'dbError: ' + DBError.errorType"/><icxml:logValue xmi:id="_6j_1YDmEEd6Rc4Dz0_sJgA" expr="'Error Msg: ' + DBError.message"/><icxml:logValue xmi:id="_6mZCEDmEEd6Rc4Dz0_sJgA" expr="'sql code: ' + DBError.sqlCode"/><icxml:logValue xmi:id="_6q_nIDmEEd6Rc4Dz0_sJgA" expr="'State: ' + DBError.sqlState"/></icxml:log><icxml:comment xmi:id="_rrg_MjmEEd6Rc4Dz0_sJgA"/>
+      
+      
+      
+      
+      
+      
+   <icxml:default xmi:id="_9klhcDmYEd6Rc4Dz0_sJgA" target="_8R38YDmYEd6Rc4Dz0_sJgA" label=""/></icxml:form>
+  <icxml:form xsi:type="icxml:SubroutineReturn" xmi:id="_8R38YDmYEd6Rc4Dz0_sJgA" worksheetScope="" id="subroutineReturn_gustor" gtfns:name="Error" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_8R_DATmYEd6Rc4Dz0_sJgA"/>
+      
+      
+      
+      
+   <icxml:subroutineReturn xmi:id="_8R_DADmYEd6Rc4Dz0_sJgA" label="Error"/></icxml:form>
+  <icxml:form xsi:type="icxml:While" xmi:id="_DeabkDmZEd6Rc4Dz0_sJgA" worksheetScope="" id="while_xupzov" gtfns:name="LoopThruList" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:while xmi:id="_DesvcDmZEd6Rc4Dz0_sJgA" whileCond="(loopCount &lt; numberOfRecords) &amp;&amp;  (loopCount &lt; 6)"/><icxml:comment xmi:id="_DesvcTmZEd6Rc4Dz0_sJgA"/>
+      
+      
+      
+      
+      
+      
+      
+      
+   <icxml:default xmi:id="_tmXfUDmaEd6Rc4Dz0_sJgA" target="_rjzxsDmaEd6Rc4Dz0_sJgA" label=""/><icxml:doloop xmi:id="_qKIecDmZEd6Rc4Dz0_sJgA" target="_GVyRUDmZEd6Rc4Dz0_sJgA"/></icxml:form>
+  <icxml:form xsi:type="icxml:Calculate" xmi:id="_E_i3IDmZEd6Rc4Dz0_sJgA" worksheetScope="" id="calc_mipliz" gtfns:name="InitializeLoop" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:calculate xmi:id="_E_1LADmZEd6Rc4Dz0_sJgA">
+         
+         
+      <icxml:calculateValue xmi:id="_E_1LATmZEd6Rc4Dz0_sJgA" result="loopCount" expr="0"/></icxml:calculate><icxml:comment xmi:id="_E_1LAjmZEd6Rc4Dz0_sJgA"/>
+      
+      
+      
+      
+      
+      
+   <icxml:default xmi:id="_TIqG4DmZEd6Rc4Dz0_sJgA" target="_DeabkDmZEd6Rc4Dz0_sJgA" label=""/></icxml:form>
+  <icxml:form xsi:type="icxml:Log" xmi:id="_GVyRUDmZEd6Rc4Dz0_sJgA" worksheetScope="" id="log_nupraz" gtfns:name="LogData" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:log xmi:id="_GVyRUTmZEd6Rc4Dz0_sJgA" logTo="'Default'">
+         
+         
+         
+         
+         
+         
+      <icxml:logValue xmi:id="_GVyRUjmZEd6Rc4Dz0_sJgA" expr="'check number: ' + _ws.DBChecks[loopCount].CheckNumber"/><icxml:logValue xmi:id="_Z7HSIDmZEd6Rc4Dz0_sJgA" expr="'amount: ' +  _ws.DBChecks[loopCount].CheckAmount"/><icxml:logValue xmi:id="_Z9mlcDmZEd6Rc4Dz0_sJgA" expr="'date: ' +  _ws.DBChecks[loopCount].CheckDate"/></icxml:log><icxml:comment xmi:id="_GVyRUzmZEd6Rc4Dz0_sJgA"/>
+      
+      
+      
+      
+      
+      
+   <icxml:default xmi:id="_NkgsYDmaEd6Rc4Dz0_sJgA" target="_1AwCsDmZEd6Rc4Dz0_sJgA" label=""/></icxml:form>
+  <icxml:form xsi:type="icxml:Calculate" xmi:id="_wlYqoDmZEd6Rc4Dz0_sJgA" worksheetScope="" id="calc_tucgof" gtfns:name="IncrementCounter" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:calculate xmi:id="_wlYqoTmZEd6Rc4Dz0_sJgA">
+         
+         
+      <icxml:calculateValue xmi:id="_wlYqojmZEd6Rc4Dz0_sJgA" result="loopCount" expr="loopCount + 1"/></icxml:calculate><icxml:comment xmi:id="_wlYqozmZEd6Rc4Dz0_sJgA"/>
+      
+      
+      
+      
+      
+      
+   <icxml:default xmi:id="_qmyIwDmaEd6Rc4Dz0_sJgA" target="_DeabkDmZEd6Rc4Dz0_sJgA" label=""/></icxml:form>
+  <icxml:form xsi:type="icxml:Play" xmi:id="_1AwCsDmZEd6Rc4Dz0_sJgA" worksheetScope="" id="play_mowxac" gtfns:name="PlayData" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:play xmi:id="_1AwCsTmZEd6Rc4Dz0_sJgA" loopCount="1"><icxml:playPromptGroup xmi:id="_1AwCsjmZEd6Rc4Dz0_sJgA" cond="true" presentAs="'sequence'" bargeIn="true" auxPrompt=""><icxml:prompt xmi:id="_1AwCszmZEd6Rc4Dz0_sJgA" cond="true" expr="'m7.wav'" fallbackText="'check number'" type="'messageID'"/><icxml:prompt xmi:id="_3vh9IDmZEd6Rc4Dz0_sJgA" cond="true" expr=" _ws.DBChecks[loopCount].CheckNumber" type="'digits'"/><icxml:prompt xmi:id="_4EWWkDmZEd6Rc4Dz0_sJgA" cond="true" expr="'m8.wav'" fallbackText="'in the amount of'" type="'messageID'"/><icxml:prompt xmi:id="_4n_oEDmZEd6Rc4Dz0_sJgA" cond="true" expr="  _ws.DBChecks[loopCount].CheckAmount" type="'currencySkipCents'"/><icxml:prompt xmi:id="_44_RcDmZEd6Rc4Dz0_sJgA" cond="true" expr="'m9.wav'" fallbackText="'was paid on'" type="'messageID'"/><icxml:prompt xmi:id="_4V7OwDmZEd6Rc4Dz0_sJgA" cond="true" expr="_ws.DBChecks[loopCount].CheckDate" type="'date'"/></icxml:playPromptGroup></icxml:play><icxml:comment xmi:id="_1A2JUDmZEd6Rc4Dz0_sJgA"/>
+      
+      
+      
+      
+      
+      
+      
+      
+   <icxml:default xmi:id="_N7bXkDmaEd6Rc4Dz0_sJgA" target="_wlYqoDmZEd6Rc4Dz0_sJgA" label=""/><icxml:events xmi:id="_1AwCtDmZEd6Rc4Dz0_sJgA">
+      <icxml:event xmi:id="_1AwCtTmZEd6Rc4Dz0_sJgA" eventAlias="error" eventType="vca:error.general, vca:error.unhandled" eventHandler="Ignore" eventText="Error"/>
+    </icxml:events></icxml:form>
+  <icxml:form xsi:type="icxml:Play" xmi:id="_rjzxsDmaEd6Rc4Dz0_sJgA" worksheetScope="" id="play_sabvum" gtfns:name="ThatsAll" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:play xmi:id="_rjzxsTmaEd6Rc4Dz0_sJgA" loopCount="1"><icxml:playPromptGroup xmi:id="_rjzxsjmaEd6Rc4Dz0_sJgA" cond="true" presentAs="'sequence'" bargeIn="true" auxPrompt=""><icxml:prompt xmi:id="_rjzxszmaEd6Rc4Dz0_sJgA" cond="true" expr="'m10.wav'" fallbackText="'that\'s all i have'" type="'messageID'"/></icxml:playPromptGroup></icxml:play><icxml:comment xmi:id="_rjzxtjmaEd6Rc4Dz0_sJgA"/>
+      
+      
+      
+      
+      
+      
+      
+      
+   <icxml:default xmi:id="_uDTS8DmaEd6Rc4Dz0_sJgA" target="_szSYMjl8Ed6weaDUAx_gDA" label=""/><icxml:events xmi:id="_rjzxtDmaEd6Rc4Dz0_sJgA">
+      <icxml:event xmi:id="_rjzxtTmaEd6Rc4Dz0_sJgA" eventAlias="error" eventType="vca:error.general, vca:error.unhandled" eventHandler="Ignore" eventText="Error"/>
+    </icxml:events></icxml:form>
+</icxml:icxml>

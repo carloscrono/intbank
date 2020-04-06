@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:icxml="http://www.intervoice.com/icxml" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_I-LWEl_WEeq66fyZ_-5Oiw" type="Icxml" name="AsyncEvent.diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_I-OZYF_WEeq66fyZ_-5Oiw" type="2020" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-OZYl_WEeq66fyZ_-5Oiw" type="5020">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-OZY1_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:EventProcess" href="AsyncEvent.icxml#_I-LWGF_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I-OZYV_WEeq66fyZ_-5Oiw" x="24" y="132"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_I-OZal_WEeq66fyZ_-5Oiw" type="2022" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-OZbF_WEeq66fyZ_-5Oiw" type="5022">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-OZbV_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:EventEntry" href="AsyncEvent.icxml#_I-OZaV_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I-OZa1_WEeq66fyZ_-5Oiw" x="144" y="24"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_I-OZd1_WEeq66fyZ_-5Oiw" type="2023" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-OZeV_WEeq66fyZ_-5Oiw" type="5023">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-OZel_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:EventExit" href="AsyncEvent.icxml#_I-OZdl_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I-OZeF_WEeq66fyZ_-5Oiw" x="264" y="24"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_I-OZhF_WEeq66fyZ_-5Oiw" type="2067" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-OZhl_WEeq66fyZ_-5Oiw" type="5067">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-OZh1_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:Hangup" href="AsyncEvent.icxml#_I-OZg1_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I-OZhV_WEeq66fyZ_-5Oiw" x="144" y="132"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_I-Rcs1_WEeq66fyZ_-5Oiw" type="2068" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-RctV_WEeq66fyZ_-5Oiw" type="5068">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-Rctl_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:HangupEnd" href="AsyncEvent.icxml#_I-Rcsl_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I-RctF_WEeq66fyZ_-5Oiw" x="264" y="132"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_I-RcwF_WEeq66fyZ_-5Oiw" type="2063" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-Rcwl_WEeq66fyZ_-5Oiw" type="5063">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-Rcw1_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:InitializeSession" href="AsyncEvent.icxml#_I-Rcv1_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I-RcwV_WEeq66fyZ_-5Oiw" x="144" y="240"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_I-RczV_WEeq66fyZ_-5Oiw" type="2064" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-Rcz1_WEeq66fyZ_-5Oiw" type="5064">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-Rc0F_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:InitializeEndSession" href="AsyncEvent.icxml#_I-RczF_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I-Rczl_WEeq66fyZ_-5Oiw" x="264" y="240"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_I-LWE1_WEeq66fyZ_-5Oiw"/>
+  <element xmi:type="icxml:RootType" href="AsyncEvent.icxml#_I-LWEV_WEeq66fyZ_-5Oiw"/>
+  <edges xmi:type="notation:Connector" xmi:id="_I-OZcV_WEeq66fyZ_-5Oiw" type="4002" source="_I-OZYF_WEeq66fyZ_-5Oiw" target="_I-OZal_WEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-OZdF_WEeq66fyZ_-5Oiw" type="6002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-OZdV_WEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_I-OZcl_WEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:ConditionalConnection" href="AsyncEvent.icxml#_I-OZcF_WEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_I-OZc1_WEeq66fyZ_-5Oiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_I-OZfl_WEeq66fyZ_-5Oiw" type="4001" source="_I-OZal_WEeq66fyZ_-5Oiw" target="_I-OZd1_WEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-OZgV_WEeq66fyZ_-5Oiw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-OZgl_WEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_I-OZf1_WEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:DefaultConnection" href="AsyncEvent.icxml#_I-OZfV_WEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_I-OZgF_WEeq66fyZ_-5Oiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_I-OZi1_WEeq66fyZ_-5Oiw" type="4002" source="_I-OZYF_WEeq66fyZ_-5Oiw" target="_I-OZhF_WEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-RcsF_WEeq66fyZ_-5Oiw" type="6002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-RcsV_WEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_I-OZjF_WEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:ConditionalConnection" href="AsyncEvent.icxml#_I-OZil_WEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_I-OZjV_WEeq66fyZ_-5Oiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_I-Rcul_WEeq66fyZ_-5Oiw" type="4001" source="_I-OZhF_WEeq66fyZ_-5Oiw" target="_I-Rcs1_WEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-RcvV_WEeq66fyZ_-5Oiw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-Rcvl_WEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_I-Rcu1_WEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:DefaultConnection" href="AsyncEvent.icxml#_I-RcuV_WEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_I-RcvF_WEeq66fyZ_-5Oiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_I-Rcx1_WEeq66fyZ_-5Oiw" type="4002" source="_I-OZYF_WEeq66fyZ_-5Oiw" target="_I-RcwF_WEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-Rcyl_WEeq66fyZ_-5Oiw" type="6002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-Rcy1_WEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_I-RcyF_WEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:ConditionalConnection" href="AsyncEvent.icxml#_I-Rcxl_WEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_I-RcyV_WEeq66fyZ_-5Oiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_I-Rc01_WEeq66fyZ_-5Oiw" type="4001" source="_I-RcwF_WEeq66fyZ_-5Oiw" target="_I-RczV_WEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I-Rc1l_WEeq66fyZ_-5Oiw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I-Rc11_WEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_I-Rc1F_WEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:DefaultConnection" href="AsyncEvent.icxml#_I-Rc0l_WEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_I-Rc1V_WEeq66fyZ_-5Oiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+</notation:Diagram>

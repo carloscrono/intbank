@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>intbank</name>
+	<comment>IC_PROJECT_VERSION=3.0.0.0,</comment>
+	<projects>
+		<project>checklist</project>
+		<project>getrates</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.intervoice.gtf.nature.icxmlProjectBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.intervoice.gtf.nature.icxmlApplicationValidationBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.intervoice.gtf.nature.icxmlProjectNature</nature>
+	</natures>
+</projectDescription>

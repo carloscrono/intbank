@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:icxml="http://www.intervoice.com/icxml" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_I91-4l_WEeq66fyZ_-5Oiw" type="Icxml" name="callintbank.diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_I91-6V_WEeq66fyZ_-5Oiw" type="2034" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I91-61_WEeq66fyZ_-5Oiw" type="5034">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I91-7F_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:CallBegin" href="callintbank.icxml#_I91-6F_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I91-6l_WEeq66fyZ_-5Oiw" x="24" y="24"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_I95CMl_WEeq66fyZ_-5Oiw" type="2010" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I95CNF_WEeq66fyZ_-5Oiw" type="5010">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I95CNV_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:Answer" href="callintbank.icxml#_I95CMV_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I95CM1_WEeq66fyZ_-5Oiw" x="144" y="24"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_I98FgV_WEeq66fyZ_-5Oiw" type="2011" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I98Fg1_WEeq66fyZ_-5Oiw" type="5011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I98FhF_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:Dialog" href="callintbank.icxml#_I98FgF_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I98Fgl_WEeq66fyZ_-5Oiw" x="264" y="24"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_I9_I0V_WEeq66fyZ_-5Oiw" type="2035" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I9_I01_WEeq66fyZ_-5Oiw" type="5035">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I9_I1F_WEeq66fyZ_-5Oiw" y="5"/>
+    </children>
+    <element xmi:type="icxml:CallEnd" href="callintbank.icxml#_I9_I0F_WEeq66fyZ_-5Oiw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I9_I0l_WEeq66fyZ_-5Oiw" x="384" y="24"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_I91-41_WEeq66fyZ_-5Oiw"/>
+  <element xmi:type="icxml:RootType" href="callintbank.icxml#_I91-4V_WEeq66fyZ_-5Oiw"/>
+  <edges xmi:type="notation:Connector" xmi:id="_I95CO1_WEeq66fyZ_-5Oiw" type="4001" source="_I91-6V_WEeq66fyZ_-5Oiw" target="_I95CMl_WEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I95CPl_WEeq66fyZ_-5Oiw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I95CP1_WEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_I95CPF_WEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:DefaultConnection" href="callintbank.icxml#_I95COl_WEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_I95CPV_WEeq66fyZ_-5Oiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_I98Fil_WEeq66fyZ_-5Oiw" type="4001" source="_I95CMl_WEeq66fyZ_-5Oiw" target="_I98FgV_WEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I98FjV_WEeq66fyZ_-5Oiw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I98Fjl_WEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_I98Fi1_WEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:DefaultConnection" href="callintbank.icxml#_I98FiV_WEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_I98FjF_WEeq66fyZ_-5Oiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_I9_I11_WEeq66fyZ_-5Oiw" type="4001" source="_I98FgV_WEeq66fyZ_-5Oiw" target="_I9_I0V_WEeq66fyZ_-5Oiw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_I9_I2l_WEeq66fyZ_-5Oiw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_I9_I21_WEeq66fyZ_-5Oiw" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_I9_I2F_WEeq66fyZ_-5Oiw" fontName="Segoe UI"/>
+    <element xmi:type="icxml:DefaultConnection" href="callintbank.icxml#_I9_I1l_WEeq66fyZ_-5Oiw"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_I9_I2V_WEeq66fyZ_-5Oiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+</notation:Diagram>

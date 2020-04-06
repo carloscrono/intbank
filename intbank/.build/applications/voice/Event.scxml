@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Exporter version 1.0 at 2020-03-06 14:35:16.202 GMT-6--><!--Note: Components marked as 'debug' have been removed from the call flow.--><scxml xmlns:icview="http://www.intervoice.com/sce/icview"
+       xmlns:jms="http://www.intervoice.com/sce/action/jms"
+       xmlns:mim="http://www.intervoice.com/sce/action/mim"
+       xmlns:scripting="http://www.intervoice.com/sce/action/scripting"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       xmlns:process="http://www.intervoice.com/sce/action/process"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gtfns="http://www.intervoice.com/gtfns/1.0"
+       xmlns="http://www.w3.org/2007/02/scxml"
+       xmlns:icxml="http://www.intervoice.com/icxml"
+       xmlns:xmi="http://www.omg.org/XMI"
+       xmlns:intv="http://www.intervoice.com/scxml"
+       xmlns:vca="http://www.intervoice.com/sce/action/vca"
+       xmlns:ex="http://www.intervoice.com/exporter"
+       initialstate="documentEntry"
+       intv:worksheetscope="applications/voice/Worksheet.ws"
+       version="1.0">
+   <state id="documentEntry">
+      <initial>
+         <transition target="documentEntry_doLocalInit"/>
+      </initial>
+      <state id="documentEntry_doLocalInit">
+         <onentry>
+            <assign location="intv_appType" expr="undefined"/>
+            <rdotype:get xmlns:rdotype="http://www.intervoice.com/sce/action/rdotype"
+                         location="intv_appType"/>
+            <if cond="intv_appType == 'vca'">
+               <assign location="intv_appType" expr="'voice'"/>
+               <elseif cond="intv_appType == 'ccxml'"/>
+               <assign location="intv_appType" expr="'call'"/>
+               <elseif cond="intv_appType == 'UNKNOWN'"/>
+               <assign location="intv_appType" expr="'process'"/>
+            </if>
+         </onentry>
+         <transition target="eventProcess_coqbel"/>
+      </state>
+      <datamodel><!--Variables from declaration block: _vNWIdF8pEeq66fyZ_-5Oiw--><data name="intv_appType" expr="undefined"/>
+         <data name="intv_eventName" expr="undefined"/>
+         <data name="intv_eventData" expr="undefined"/>
+      </datamodel>
+      <state id="eventProcess_coqbel">
+         <onentry>
+            <icview:log text="action=entry, type=EventProcess, name=, id=eventProcess_coqbel, document=/intbank/applications/voice/Event.scxml"/>
+            <assign location="intv_eventName" expr="_scxml.parameters.intv_eventName"/>
+            <assign location="intv_eventData" expr="_scxml.parameters.intv_eventData"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=EventProcess, name=, id=eventProcess_coqbel, document=/intbank/applications/voice/Event.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="intv_eventName == 'Error'" target="eventEntry_wivbok">
+            <icview:log text="action=leg:ErrorAction, type=EventProcess, name=, id=eventProcess_coqbel, document=/intbank/applications/voice/Event.scxml"/>
+         </transition>
+         <transition cond="intv_eventName == 'Menu Error'" target="eventEntry_wivbok">
+            <icview:log text="action=leg:ErrorAction, type=EventProcess, name=, id=eventProcess_coqbel, document=/intbank/applications/voice/Event.scxml"/>
+         </transition>
+         <transition cond="intv_eventName == 'Menu Timeout'" target="eventEntry_wivbok">
+            <icview:log text="action=leg:ErrorAction, type=EventProcess, name=, id=eventProcess_coqbel, document=/intbank/applications/voice/Event.scxml"/>
+         </transition>
+         <transition cond="intv_eventName == 'Collection Error'" target="eventEntry_lesqis">
+            <icview:log text="action=leg:NoMatch, type=EventProcess, name=, id=eventProcess_coqbel, document=/intbank/applications/voice/Event.scxml"/>
+         </transition>
+         <transition cond="intv_eventName == 'Collection Timeout'" target="eventEntry_wemlis">
+            <icview:log text="action=leg:NoInput, type=EventProcess, name=, id=eventProcess_coqbel, document=/intbank/applications/voice/Event.scxml"/>
+         </transition>
+         <transition cond="intv_eventName == 'Host'" target="eventEntry_wivbok">
+            <icview:log text="action=leg:ErrorAction, type=EventProcess, name=, id=eventProcess_coqbel, document=/intbank/applications/voice/Event.scxml"/>
+         </transition>
+      </state>
+      <state id="eventEntry_wivbok">
+         <onentry>
+            <icview:log text="action=entry, type=EventEntry, name=, id=eventEntry_wivbok, document=/intbank/applications/voice/Event.scxml"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=EventEntry, name=, id=eventEntry_wivbok, document=/intbank/applications/voice/Event.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="play_qoffep"/>
+      </state>
+      <state id="eventEntry_lesqis">
+         <onentry>
+            <icview:log text="action=entry, type=EventEntry, name=, id=eventEntry_lesqis, document=/intbank/applications/voice/Event.scxml"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=EventEntry, name=, id=eventEntry_lesqis, document=/intbank/applications/voice/Event.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="play_xevkos"/>
+      </state>
+      <state id="eventEntry_wemlis">
+         <onentry>
+            <icview:log text="action=entry, type=EventEntry, name=, id=eventEntry_wemlis, document=/intbank/applications/voice/Event.scxml"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=EventEntry, name=, id=eventEntry_wemlis, document=/intbank/applications/voice/Event.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="play_juqwut"/>
+      </state>
+      <state id="play_qoffep">
+         <initial>
+            <transition target="genericPlay_play_qoffep"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayProblem, id=play_qoffep, document=/intbank/applications/voice/Event.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayProblem, id=play_qoffep, document=/intbank/applications/voice/Event.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_qoffep">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayProblem__play_qoffep'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m103.wav'"
+                                 fallbackText="'i\'m sorry i\'m having trouble with my computer.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="goToBlock_tosxuf">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayProblem, id=play_qoffep, document=/intbank/applications/voice/Event.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="goToBlock_tosxuf">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayProblem, id=play_qoffep, document=/intbank/applications/voice/Event.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="goToBlock_tosxuf">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayProblem, id=play_qoffep, document=/intbank/applications/voice/Event.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="play_xevkos">
+         <initial>
+            <transition target="genericPlay_play_xevkos"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayDontUnderstand, id=play_xevkos, document=/intbank/applications/voice/Event.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayDontUnderstand, id=play_xevkos, document=/intbank/applications/voice/Event.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_xevkos">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayDontUnderstand__play_xevkos'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m109.wav'"
+                                 fallbackText="'sorry i just can\'t understand you.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="goToBlock_tosxuf">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayDontUnderstand, id=play_xevkos, document=/intbank/applications/voice/Event.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="goToBlock_tosxuf">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayDontUnderstand, id=play_xevkos, document=/intbank/applications/voice/Event.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="goToBlock_tosxuf">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayDontUnderstand, id=play_xevkos, document=/intbank/applications/voice/Event.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="play_juqwut">
+         <initial>
+            <transition target="genericPlay_play_juqwut"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayCanHear, id=play_juqwut, document=/intbank/applications/voice/Event.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayCanHear, id=play_juqwut, document=/intbank/applications/voice/Event.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_juqwut">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayCanHear__play_juqwut'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m108.wav'"
+                                 fallbackText="'sorry i just can\'t seem to hear you.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="goToBlock_tosxuf">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayCanHear, id=play_juqwut, document=/intbank/applications/voice/Event.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="goToBlock_tosxuf">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayCanHear, id=play_juqwut, document=/intbank/applications/voice/Event.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="goToBlock_tosxuf">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayCanHear, id=play_juqwut, document=/intbank/applications/voice/Event.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="goToBlock_tosxuf">
+         <datamodel>
+            <data name="src" expr="'/applications/voice/VB_Goodbye.scxml'"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=GotoBlock, name=VB_Goodbye, id=goToBlock_tosxuf, document=/intbank/applications/voice/Event.scxml"/>
+            <send target="'top'" event="'intv:gotoBlock'" namelist="src"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=GotoBlock, name=VB_Goodbye, id=goToBlock_tosxuf, document=/intbank/applications/voice/Event.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+   </state>
+   <final id="documentExit"/>
+</scxml>

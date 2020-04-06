@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Exporter version 1.0 at 2020-03-06 14:35:18.043 GMT-6--><!--Note: Components marked as 'debug' have been removed from the call flow.--><scxml xmlns:icview="http://www.intervoice.com/sce/icview"
+       xmlns:jms="http://www.intervoice.com/sce/action/jms"
+       xmlns:mim="http://www.intervoice.com/sce/action/mim"
+       xmlns:scripting="http://www.intervoice.com/sce/action/scripting"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       xmlns:process="http://www.intervoice.com/sce/action/process"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gtfns="http://www.intervoice.com/gtfns/1.0"
+       xmlns="http://www.w3.org/2007/02/scxml"
+       xmlns:icxml="http://www.intervoice.com/icxml"
+       xmlns:xmi="http://www.omg.org/XMI"
+       xmlns:intv="http://www.intervoice.com/scxml"
+       xmlns:vca="http://www.intervoice.com/sce/action/vca"
+       xmlns:ex="http://www.intervoice.com/exporter"
+       initialstate="documentEntry"
+       intv:worksheetscope="getrates/subroutines/process/Worksheet.ws"
+       version="1.0">
+   <state id="documentEntry">
+      <initial>
+         <transition target="documentEntry_doLocalInit"/>
+      </initial>
+      <state id="documentEntry_doLocalInit">
+         <onentry>
+            <assign location="intv_appType" expr="undefined"/>
+            <rdotype:get xmlns:rdotype="http://www.intervoice.com/sce/action/rdotype"
+                         location="intv_appType"/>
+            <if cond="intv_appType == 'vca'">
+               <assign location="intv_appType" expr="'voice'"/>
+               <elseif cond="intv_appType == 'ccxml'"/>
+               <assign location="intv_appType" expr="'call'"/>
+               <elseif cond="intv_appType == 'UNKNOWN'"/>
+               <assign location="intv_appType" expr="'process'"/>
+            </if>
+         </onentry>
+         <transition target="eventProcess_quhkad"/>
+      </state>
+      <datamodel><!--Variables from declaration block: _y9_o9F_AEeq66fyZ_-5Oiw--><data name="intv_appType" expr="undefined"/>
+         <data name="intv_eventName" expr="undefined"/>
+         <data name="intv_eventData" expr="undefined"/>
+      </datamodel>
+      <state id="eventProcess_quhkad">
+         <onentry>
+            <icview:log text="action=entry, type=EventProcess, name=AsyncHanger, id=eventProcess_quhkad, document=/getrates/subroutines/process/AsyncEvent.scxml"/>
+            <assign location="intv_eventName" expr="_scxml.parameters.intv_eventName"/>
+            <assign location="intv_eventData" expr="_scxml.parameters.intv_eventData"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=EventProcess, name=AsyncHanger, id=eventProcess_quhkad, document=/getrates/subroutines/process/AsyncEvent.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="intv_eventName == 'Cleanup'" target="cleanup_gutxen">
+            <icview:log text="action=leg:CleanupAction, type=EventProcess, name=AsyncHanger, id=eventProcess_quhkad, document=/getrates/subroutines/process/AsyncEvent.scxml"/>
+         </transition>
+         <transition cond="intv_eventName == 'Initialize'" target="initialize_curjak">
+            <icview:log text="action=leg:InitializeAction, type=EventProcess, name=AsyncHanger, id=eventProcess_quhkad, document=/getrates/subroutines/process/AsyncEvent.scxml"/>
+         </transition>
+      </state>
+      <state id="cleanup_gutxen">
+         <onentry>
+            <icview:log text="action=entry, type=Cleanup, name=, id=cleanup_gutxen, document=/getrates/subroutines/process/AsyncEvent.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Cleanup, name=, id=cleanup_gutxen, document=/getrates/subroutines/process/AsyncEvent.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="_ws.intv_libraryCleaned == undefined" target="cleanupend_muskis">
+            <assign location="_ws.intv_libraryCleaned" expr="true"/>
+         </transition>
+         <transition cond="true" target="documentExit"/>
+      </state>
+      <state id="cleanupend_muskis">
+         <initial>
+            <transition target="runCleanup_cleanupend_muskis"/>
+         </initial>
+         <state id="runCleanup_cleanupend_muskis">
+            <initial>
+               <transition target="initCleanup_cleanupend_muskis"/>
+            </initial>
+            <datamodel>
+               <data name="index" expr="null"/>
+               <data name="src" expr="null"/>
+            </datamodel>
+            <state id="initCleanup_cleanupend_muskis">
+               <onentry>
+                  <icview:log text="action=entry, type=CleanupEnd, name=, id=cleanupend_muskis, document=/getrates/subroutines/process/AsyncEvent.scxml"/>
+                  <assign location="index" expr="0"/>
+               </onentry>
+               <transition target="cleanupCheck_cleanupend_muskis"/>
+            </state>
+            <state id="cleanupCheck_cleanupend_muskis">
+               <transition cond="index &lt; _ws.intv_librarySize" target="cleanupLibrary_cleanupend_muskis"/>
+               <transition cond="true" target="entryExit_cleanupend_muskis"/>
+            </state>
+            <state id="cleanupLibrary_cleanupend_muskis">
+               <onentry>
+                  <assign location="src" expr="_ws.intv_libraryList[index++]"/>
+                  <assign location="intv_eventName" expr="'Cleanup'"/>
+                  <assign location="intv_eventData" expr="undefined"/>
+               </onentry>
+               <invoke targettype="x-scxml-component" srcexpr="src + 'AsyncEvent.scxml'">
+                  <param name="intv_eventName" expr="intv_eventName"/>
+                  <param name="intv_eventData" expr="intv_eventData"/>
+               </invoke>
+               <transition event="vca:*"/>
+               <transition event="error.*"/>
+               <transition event="cleanupLibrary_cleanupend_muskis.invoke.done"
+                           target="cleanupCheck_cleanupend_muskis"/>
+            </state>
+         </state>
+         <state id="entryExit_cleanupend_muskis">
+            <onentry>
+               <icview:log text="action=entry, type=CleanupEnd, name=, id=cleanupend_muskis, document=/getrates/subroutines/process/AsyncEvent.scxml"/>
+               <assign location="intv_eventName" expr="undefined"/>
+            </onentry>
+            <onexit>
+               <icview:log text="action=exit, type=CleanupEnd, name=, id=cleanupend_muskis, document=/getrates/subroutines/process/AsyncEvent.scxml"
+                           nolog="true"/>
+            </onexit>
+            <transition target="documentExit"/>
+         </state>
+      </state>
+      <state xmlns:cfg="http://www.intervoice.com/sce/action/configuration"
+             id="initialize_curjak">
+         <initial>
+            <transition target="checkAppType_initialize_curjak"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=InitializeSession, name=, id=initialize_curjak, document=/getrates/subroutines/process/AsyncEvent.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=InitializeSession, name=, id=initialize_curjak, document=/getrates/subroutines/process/AsyncEvent.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="checkAppType_initialize_curjak">
+            <transition cond="intv_appType == 'voice'" target="getProperties_initialize_curjak"/>
+            <transition cond="true" target="initBHTT_initialize_curjak"/>
+         </state>
+         <state id="getProperties_initialize_curjak">
+            <onentry intv:abortonerror="true">
+               <assign location="_ws.session" expr="new Object()"/>
+               <vca:getProperties/>
+            </onentry>
+            <transition event="vca:*" target="initBHTT_initialize_curjak">
+               <assign location="_ws.session" expr="_eventdata.session"/>
+               <icview:log text="action=leg:vca:*, type=InitializeSession, name=, id=initialize_curjak, document=/getrates/subroutines/process/AsyncEvent.scxml">
+                  <icview:result name="session" expr="_ws.session"/>
+               </icview:log>
+            </transition>
+         </state>
+         <state id="initBHTT_initialize_curjak">
+            <onentry intv:abortonerror="true"/>
+            <transition target="initializeend_hebjov">
+               <icview:log text="action=leg:default, type=InitializeSession, name=, id=initialize_curjak, document=/getrates/subroutines/process/AsyncEvent.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="initializeend_hebjov">
+         <onentry>
+            <icview:log text="action=entry, type=InitializeEndSession, name=, id=initializeend_hebjov, document=/getrates/subroutines/process/AsyncEvent.scxml"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=InitializeEndSession, name=, id=initializeend_hebjov, document=/getrates/subroutines/process/AsyncEvent.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="documentExit"/>
+      </state>
+   </state>
+   <final id="documentExit"/>
+</scxml>

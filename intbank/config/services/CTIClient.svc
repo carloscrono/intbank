@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<domains xmlns="http://www.intervoice.com/schema/property/3.0" >
+	<audit savedby="CTI-Defaults" timestamp="Mon Oct 29 12:08:10 CDT 2007" version="3.0.1.0" />
+	<domain id="com.intervoice.scxml.cti.client" domain-type="SERVICE">
+	    <description value="Computer-Telephony Integration Client" />
+	    <display-name value="CTI Client"/>
+	    
+	    <property key="endPointURL" javascript-validators="validateUrl()">
+			<app-value value="http://localhost:8080/axis/services/WSGatewayListener" />
+			<default-value value="http://mycti:8080/axis/services/WSGatewayListener" />
+			<description value="URL for the CTI Gateway Web Service" />
+		</property>
+		
+		<property key="useHttp"  javascript-validators="validateBoolean();">
+			<app-value value="false" />
+			<default-value value="false" />
+			<description value="Set to &apos;true&apos; to use HttpVOX rather than CTI Gateway. (Allowed values: true | false)" />
+		</property>
+				
+	    <property key="httpEndPoint" javascript-validators="validateUrl()">
+			<app-value value="http://httpVOX:8080/httpvox_htm" />
+			<default-value value="http://myHttpVOX:8080/httpvox_htm" />
+			<description value="URL for the HttpVOX service" />
+		</property>
+
+		<property key="useMediaServerHost"  javascript-validators="validateBoolean();">
+			<app-value value="false" />
+			<default-value value="false" />
+			<description value="Set to &apos;true&apos; to use Media Server hostname in CTI Gateway URL. (Allowed values: true | false)" />
+		</property>
+		
+	    <property key="ctiPortNum" javascript-validators="validateIntegerRange(0, 65535);">
+			<app-value value="8080" />
+			<default-value value="8080" />
+			<description value="Port number for the CTI service" />
+		</property>
+		
+    </domain>
+</domains>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Exporter version 1.0 at 2020-03-06 14:35:18.072 GMT-6--><!--Note: Components marked as 'debug' have been removed from the call flow.--><scxml xmlns:icview="http://www.intervoice.com/sce/icview"
+       xmlns:jms="http://www.intervoice.com/sce/action/jms"
+       xmlns:mim="http://www.intervoice.com/sce/action/mim"
+       xmlns:scripting="http://www.intervoice.com/sce/action/scripting"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       xmlns:process="http://www.intervoice.com/sce/action/process"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gtfns="http://www.intervoice.com/gtfns/1.0"
+       xmlns="http://www.w3.org/2007/02/scxml"
+       xmlns:icxml="http://www.intervoice.com/icxml"
+       xmlns:xmi="http://www.omg.org/XMI"
+       xmlns:intv="http://www.intervoice.com/scxml"
+       xmlns:vca="http://www.intervoice.com/sce/action/vca"
+       xmlns:ex="http://www.intervoice.com/exporter"
+       initialstate="documentEntry"
+       intv:worksheetscope="getrates/subroutines/process/Worksheet.ws"
+       version="1.0">
+   <state id="documentEntry">
+      <initial>
+         <transition target="documentEntry_doLocalInit"/>
+      </initial>
+      <state id="documentEntry_doLocalInit">
+         <onentry>
+            <assign location="intv_appType" expr="undefined"/>
+            <rdotype:get xmlns:rdotype="http://www.intervoice.com/sce/action/rdotype"
+                         location="intv_appType"/>
+            <if cond="intv_appType == 'vca'">
+               <assign location="intv_appType" expr="'voice'"/>
+               <elseif cond="intv_appType == 'ccxml'"/>
+               <assign location="intv_appType" expr="'call'"/>
+               <elseif cond="intv_appType == 'UNKNOWN'"/>
+               <assign location="intv_appType" expr="'process'"/>
+            </if>
+         </onentry>
+         <transition target="documentEntry_initialize"/>
+      </state>
+      <state id="documentEntry_initialize">
+         <initial>
+            <transition target="getInitializeStatus_documentEntry_initialize"/>
+         </initial>
+         <datamodel>
+            <data name="src" expr="null"/>
+         </datamodel>
+         <state id="getInitializeStatus_documentEntry_initialize">
+            <transition cond="_ws.intv_isInitialized == undefined"
+                        target="doInitialize_documentEntry_initialize">
+               <assign location="_ws.intv_isInitialized" expr="true"/>
+            </transition>
+            <transition cond="true" target="subroutineEntry_zonkag"/>
+         </state>
+         <state id="doInitialize_documentEntry_initialize">
+            <onentry>
+               <assign location="_ws.intv_libraryList" expr="new Array();"/>
+               <assign location="_ws.intv_librarySize" expr="0;"/>
+               <assign location="src"
+                       expr="'/getrates/subroutines/' + 'process' + '/AsyncEvent.scxml'"/>
+               <assign location="intv_eventName" expr="'Initialize'"/>
+               <assign location="intv_eventData" expr="undefined"/>
+            </onentry>
+            <invoke targettype="x-scxml-component" srcexpr="src">
+               <param name="intv_eventName"/>
+               <param name="intv_eventData"/>
+            </invoke>
+            <transition event="doInitialize_documentEntry_initialize.invoke.done"
+                        target="subroutineEntry_zonkag"/>
+         </state>
+      </state>
+      <datamodel><!--Variables from declaration block: _e6dc121f_bff3_4db1_b10a_c01dc97de1f1--><data name="intv_appType" expr="undefined"/>
+         <data name="intv_eventName" expr="undefined"/>
+         <data name="intv_eventData" expr="undefined"/>
+         <data name="fromCurrency" expr="undefined"/>
+         <data name="toCurrency" expr="undefined"/>
+         <data name="result" expr="undefined"/>
+         <data name="error_reason" expr="undefined"/>
+      </datamodel>
+      <state id="subroutineEntry_zonkag">
+         <onentry>
+            <assign location="intv_eventName" expr="undefined"/>
+            <if cond="_scxml.parameters.fromCurrency == undefined">
+               <assign location="fromCurrency" expr="undefined"/>
+               <else/>
+               <assign location="fromCurrency" expr="_scxml.parameters.fromCurrency"/>
+            </if>
+            <if cond="_scxml.parameters.toCurrency == undefined">
+               <assign location="toCurrency" expr="undefined"/>
+               <else/>
+               <assign location="toCurrency" expr="_scxml.parameters.toCurrency"/>
+            </if>
+            <icview:log text="action=entry, type=SubroutineEntry, name=, id=subroutineEntry_zonkag, document=/getrates/subroutines/process/getCurrencyValue.scxml">
+               <icview:param name="fromCurrency" expr="undefined"/>
+               <icview:param name="toCurrency" expr="undefined"/>
+            </icview:log>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=SubroutineEntry, name=, id=subroutineEntry_zonkag, document=/getrates/subroutines/process/getCurrencyValue.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="calc_galzor"/>
+      </state>
+      <state id="subroutineReturn_qonmel">
+         <datamodel>
+            <data name="intv_returnObject" expr="null"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=SubroutineReturn, name=, id=subroutineReturn_qonmel, document=/getrates/subroutines/process/getCurrencyValue.scxml"/>
+            <assign location="intv_returnObject" expr="result"/>
+            <send target="'parent'" event="'success'" namelist="intv_returnObject"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=SubroutineReturn, name=, id=subroutineReturn_qonmel, document=/getrates/subroutines/process/getCurrencyValue.scxml"
+                        nolog="true">
+               <icview:result name="returnValue" expr="intv_returnObject"/>
+               <icview:result name="label" value="success"/>
+            </icview:log>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+      <state id="script_zepfij">
+         <onentry intv:abortonerror="true">
+            <icview:log text="action=entry, type=Script, name=, id=script_zepfij, document=/getrates/subroutines/process/getCurrencyValue.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+            <scripting:script><![CDATA[
+
+var jmxHelper = Packages.com.intervoice.scxml.http.actions.JMXBeanWebServices.getHelper('CurrencyConvertorService', 'getCurrencyValue');
+try {
+	Packages.com.intervoice.ws.client.Utility.initializeSSLProperties(icserviceconfig);
+	var repoPath = Packages.com.intervoice.ws.client.Utility.getRepositoryLocation(icsession.getProperty("appName"));
+	var axis2xml = repoPath+"/conf/axis2.xml";	
+	var configurationContext = Packages.com.intervoice.ws.client.ConfigurationContextInstance.getInstance(repoPath,axis2xml).getAxis2ConfigurationContext();
+	var stub = new Packages.getrates_ws.CurrencyConvertorServiceStub(configurationContext);
+
+	if (_ws.__CurrencyConvertorService_authUsername != undefined && _ws.__CurrencyConvertorService_authPassword != undefined) {
+		var authenticator = new Packages.org.apache.axis2.transport.http.impl.httpclient4.HttpTransportPropertiesImpl.Authenticator();
+		authenticator.setUsername(_ws.__CurrencyConvertorService_authUsername);
+		authenticator.setPassword(_ws.__CurrencyConvertorService_authPassword);
+		stub._getServiceClient().getOptions().setProperty(Packages.org.apache.axis2.transport.http.HTTPConstants.AUTHENTICATE,authenticator);
+	}
+	
+	if (_ws.__CurrencyConvertorService_timeout != undefined)
+		stub._getServiceClient().getOptions().setTimeOutInMilliSeconds(_ws.__CurrencyConvertorService_timeout);
+	if (_ws.__CurrencyConvertorService_endpoint != undefined)
+		stub._getServiceClient().getOptions().setTo(new Packages.org.apache.axis2.addressing.EndpointReference(_ws.__CurrencyConvertorService_endpoint));
+		
+	if (_ws.__CurrencyConvertorService_customHeader != undefined) {
+        var soapFactory  = Packages.com.intervoice.ws.client.Utility.getSOAPFactory( stub._getServiceClient().getOptions().getSoapVersionURI());
+        for (var i=0; i < _ws.__CurrencyConvertorService_customHeader.length; i++) {
+            var soapHeaderBlock = Packages.org.apache.axiom.om.util.ElementHelper.toSOAPHeaderBlock(_ws.__CurrencyConvertorService_customHeader[i], soapFactory);
+            stub._getServiceClient().addHeader(soapHeaderBlock);
+        }
+	}
+	
+	result = stub.getCurrencyValue(_scxml.parameters.fromCurrency,_scxml.parameters.toCurrency);
+	
+	stub.cleanup();
+}
+catch(e)
+{
+	error_reason = e;
+}
+jmxHelper.done(error_reason != undefined);
+
+]]></scripting:script>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Script, name=, id=script_zepfij, document=/getrates/subroutines/process/getCurrencyValue.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="hasNoError()" target="decision_cozsuq"/>
+      </state>
+      <state id="decision_cozsuq">
+         <onentry>
+            <icview:log text="action=entry, type=If, name=, id=decision_cozsuq, document=/getrates/subroutines/process/getCurrencyValue.scxml">
+               <icview:param name="success" value="error_reason == undefined"/>
+            </icview:log>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=If, name=, id=decision_cozsuq, document=/getrates/subroutines/process/getCurrencyValue.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="error_reason == undefined" target="subroutineReturn_qonmel">
+            <icview:log text="action=leg:success, type=If, name=, id=decision_cozsuq, document=/getrates/subroutines/process/getCurrencyValue.scxml"/>
+         </transition>
+         <transition cond="true" target="subroutineReturn_vagvep">
+            <icview:log text="action=leg:default, type=If, name=, id=decision_cozsuq, document=/getrates/subroutines/process/getCurrencyValue.scxml"/>
+         </transition>
+      </state>
+      <state id="subroutineReturn_vagvep">
+         <datamodel>
+            <data name="intv_returnObject" expr="null"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=SubroutineReturn, name=, id=subroutineReturn_vagvep, document=/getrates/subroutines/process/getCurrencyValue.scxml"/>
+            <assign location="intv_returnObject" expr="error_reason"/>
+            <send target="'parent'" event="'error'" namelist="intv_returnObject"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=SubroutineReturn, name=, id=subroutineReturn_vagvep, document=/getrates/subroutines/process/getCurrencyValue.scxml"
+                        nolog="true">
+               <icview:result name="returnValue" expr="intv_returnObject"/>
+               <icview:result name="label" value="error"/>
+            </icview:log>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+      <state id="calc_galzor">
+         <onentry>
+            <icview:log text="action=entry, type=Calculate, name=, id=calc_galzor, document=/getrates/subroutines/process/getCurrencyValue.scxml"/>
+            <assign location="result" expr="undefined"/>
+            <assign location="error_reason" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Calculate, name=, id=calc_galzor, document=/getrates/subroutines/process/getCurrencyValue.scxml"
+                        nolog="true">
+               <icview:result name="result" expr="result"/>
+               <icview:result name="error_reason" expr="error_reason"/>
+            </icview:log>
+         </onexit>
+         <transition cond="hasNoError()" target="script_zepfij">
+            <assign location="intv_eventName" expr="undefined"/>
+         </transition>
+      </state>
+   </state>
+   <final id="documentExit"/>
+</scxml>

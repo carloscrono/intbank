@@ -1,0 +1,935 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Exporter version 1.0 at 2020-03-06 14:35:16.229 GMT-6--><!--Note: Components marked as 'debug' have been removed from the call flow.--><scxml xmlns:icview="http://www.intervoice.com/sce/icview"
+       xmlns:jms="http://www.intervoice.com/sce/action/jms"
+       xmlns:mim="http://www.intervoice.com/sce/action/mim"
+       xmlns:scripting="http://www.intervoice.com/sce/action/scripting"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       xmlns:process="http://www.intervoice.com/sce/action/process"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gtfns="http://www.intervoice.com/gtfns/1.0"
+       xmlns="http://www.w3.org/2007/02/scxml"
+       xmlns:icxml="http://www.intervoice.com/icxml"
+       xmlns:xmi="http://www.omg.org/XMI"
+       xmlns:intv="http://www.intervoice.com/scxml"
+       xmlns:vca="http://www.intervoice.com/sce/action/vca"
+       xmlns:ex="http://www.intervoice.com/exporter"
+       initialstate="documentEntry"
+       intv:worksheetscope="applications/voice/Worksheet.ws"
+       version="1.0">
+   <state id="documentEntry">
+      <initial>
+         <transition target="documentEntry_doLocalInit"/>
+      </initial>
+      <state id="documentEntry_doLocalInit">
+         <onentry>
+            <assign location="intv_appType" expr="undefined"/>
+            <rdotype:get xmlns:rdotype="http://www.intervoice.com/sce/action/rdotype"
+                         location="intv_appType"/>
+            <if cond="intv_appType == 'vca'">
+               <assign location="intv_appType" expr="'voice'"/>
+               <elseif cond="intv_appType == 'ccxml'"/>
+               <assign location="intv_appType" expr="'call'"/>
+               <elseif cond="intv_appType == 'UNKNOWN'"/>
+               <assign location="intv_appType" expr="'process'"/>
+            </if>
+         </onentry>
+         <transition target="blockEntry_vaygeh"/>
+      </state>
+      <datamodel><!--Variables from declaration block: _UBEu9F8qEeq66fyZ_-5Oiw--><data name="intv_appType" expr="undefined"/>
+         <data name="intv_eventName" expr="undefined"/>
+         <data name="intv_eventData" expr="undefined"/>
+         <data name="intv_noFieldsInitialized" expr="undefined"/>
+         <data name="intv_allFieldsInitialized" expr="undefined"/>
+         <data name="intv_atLeastOneSituationExecuted" expr="undefined"/>
+         <data name="intv_modalities" expr="undefined"/>
+         <data name="_wsConvertedRateObj" expr="undefined"/>
+      </datamodel>
+      <state id="blockEntry_vaygeh">
+         <onentry>
+            <icview:log text="action=entry, type=BlockEntry, name=, id=blockEntry_vaygeh, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=BlockEntry, name=, id=blockEntry_vaygeh, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="play_tofqug"/>
+      </state>
+      <state id="play_tofqug">
+         <initial>
+            <transition target="genericPlay_play_tofqug"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=CurrencyConversionLandmark, id=play_tofqug, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=CurrencyConversionLandmark, id=play_tofqug, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_tofqug">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'CurrencyConversionLandmark__play_tofqug'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m16.wav'"
+                                 fallbackText="'currency conversion'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="collect_gunsum">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=CurrencyConversionLandmark, id=play_tofqug, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="collect_gunsum">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=CurrencyConversionLandmark, id=play_tofqug, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="collect_gunsum">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=CurrencyConversionLandmark, id=play_tofqug, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="collect_gunsum">
+         <initial>
+            <transition target="genericCollect_collect_gunsum"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Collect, name=CollectCurrencyType, id=collect_gunsum, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+            <assign location="_ws.callerOptionObj" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Collect, name=CollectCurrencyType, id=collect_gunsum, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericCollect_collect_gunsum">
+            <onentry intv:abortonerror="true">
+               <vca:collect fallback="true" inputMode="'voice'" maxErrors="4" maxNoInput="3" maxNoMatch="3"
+                            maxSpeechTimeout="3"
+                            slotName="'MEANING'"
+                            formName="'CollectCurrencyType__collect_gunsum'">
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'default'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m17.wav'"
+                                 fallbackText="'i can convert american dollars to pesos, pounds, canadian or euro dollars.'"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m18.wav'"
+                                 fallbackText="'so which one would you like?'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'noinput'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m105.wav'"
+                                 fallbackText="'please say which currency you want your dollars converted to, pesos, pounds, canadian, or euros'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'nomatch'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m105.wav'"
+                                 fallbackText="'please say which currency you want your dollars converted to, pesos, pounds, canadian, or euros'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'maxspeechtimeout'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m105.wav'"
+                                 fallbackText="'please say which currency you want your dollars converted to, pesos, pounds, canadian, or euros'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:grammar expr="'universals.grxml'" mimeType="'application/srgs+xml'" type="'url'">
+                     <vca:element type="'attr'" name="'mode'" expr="'voice'"/>
+                  </vca:grammar>
+                  <vca:grammar expr="'currencytype.grxml'" mimeType="'application/srgs+xml'" type="'url'">
+                     <vca:element type="'attr'" name="'mode'" expr="'voice'"/>
+                  </vca:grammar>
+               </vca:collect>
+            </onentry>
+            <transition event="vca:success" target="case_kuvjuv">
+               <assign location="intv_eventName" expr="'Success'"/>
+               <if cond="(VIVR.getInteractionMode()=='visual' || VIVR.getInteractionMode()=='nlu-voice' || VIVR.getInteractionMode()=='nlu-text')">
+<scripting:script xmlns:scripting="http://www.intervoice.com/sce/action/scripting"><![CDATA[
+		var slotNum = 0;
+		var singleslot;
+		var singleslotName;
+		for (var slot in _eventdata.result) {
+			slotNum++;
+			singleslot = _eventdata.result[slot];
+			singleslotName = slot;
+		}
+		if (slotNum == 1 && (singleslotName == 'DEFAULT' || VIVR.isModelDefinedSlotName())) {
+			_eventdata.result = singleslot;
+		}
+]]></scripting:script>
+</if>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerOptionObj" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Collect, name=CollectCurrencyType, id=collect_gunsum, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerOptionObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.general" target="case_kuvjuv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerOptionObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Collect, name=CollectCurrencyType, id=collect_gunsum, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerOptionObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.unhandled" target="case_kuvjuv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerOptionObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Collect, name=CollectCurrencyType, id=collect_gunsum, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerOptionObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxnomatch" target="case_kuvjuv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerOptionObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxnomatch, type=Collect, name=CollectCurrencyType, id=collect_gunsum, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerOptionObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxnoinput" target="case_kuvjuv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerOptionObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxnoinput, type=Collect, name=CollectCurrencyType, id=collect_gunsum, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerOptionObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxspeechtimeout" target="case_kuvjuv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerOptionObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxspeechtimeout, type=Collect, name=CollectCurrencyType, id=collect_gunsum, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerOptionObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxerrors" target="case_kuvjuv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerOptionObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxerrors, type=Collect, name=CollectCurrencyType, id=collect_gunsum, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerOptionObj"/>
+               </icview:log>
+            </transition>
+         </state>
+      </state>
+      <state id="case_kuvjuv">
+         <datamodel>
+            <data expr="false" name="case_expr_case_kuvjuv"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=Case, name=CallerSaid, id=case_kuvjuv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+               <icview:param name="MainMenu" value="'mainmenu'"/>
+               <icview:param name="Operator" value="'operator'"/>
+            </icview:log>
+            <assign location="case_expr_case_kuvjuv" expr="_ws.callerOptionObj.result"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Case, name=CallerSaid, id=case_kuvjuv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="case_expr_case_kuvjuv == 'mainmenu'" target="goToBlock_lamgel">
+            <icview:log text="action=leg:MainMenu, type=Case, name=CallerSaid, id=case_kuvjuv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+         <transition cond="case_expr_case_kuvjuv == 'operator'" target="goToBlock_hahfaq">
+            <icview:log text="action=leg:Operator, type=Case, name=CallerSaid, id=case_kuvjuv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+         <transition cond="true" target="collect_legdiv">
+            <icview:log text="action=leg:default, type=Case, name=CallerSaid, id=case_kuvjuv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+      </state>
+      <state id="goToBlock_lamgel">
+         <datamodel>
+            <data name="src" expr="'/applications/voice/VB_MainMenu.scxml'"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=GotoBlock, name=VB_MainMenu, id=goToBlock_lamgel, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <send target="'top'" event="'intv:gotoBlock'" namelist="src"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=GotoBlock, name=VB_MainMenu, id=goToBlock_lamgel, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+      <state id="collect_legdiv">
+         <initial>
+            <transition target="genericCollect_collect_legdiv"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Collect, name=CollectCurrencyAmount, id=collect_legdiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+            <assign location="_ws.callerSaidObj" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Collect, name=CollectCurrencyAmount, id=collect_legdiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericCollect_collect_legdiv">
+            <onentry intv:abortonerror="true">
+               <vca:collect fallback="true" inputMode="'both'" maxErrors="1" maxNoInput="1" maxNoMatch="1"
+                            maxSpeechTimeout="1"
+                            slotName="'MEANING'"
+                            formName="'CollectCurrencyAmount__collect_legdiv'">
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'default'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m19.wav'"
+                                 fallbackText="'and how much would you like to convert?'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'noinput'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m106.wav'"
+                                 fallbackText="'before i can convert your money, i will need to know how much you want to convert.'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'nomatch'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m106.wav'"
+                                 fallbackText="'before i can convert your money, i will need to know how much you want to convert.'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:grammar expr="'universals.grxml'" mimeType="'application/srgs+xml'" type="'url'">
+                     <vca:element type="'attr'" name="'mode'" expr="'voice'"/>
+                  </vca:grammar>
+                  <vca:grammar expr="'builtin:grammar/currency'" mimeType="'application/srgs+xml'"
+                               type="'url'">
+                     <vca:element type="'attr'" name="'mode'" expr="'voice'"/>
+                  </vca:grammar>
+                  <vca:grammar expr="'builtin:dtmf/currency'" mimeType="'application/srgs+xml'" type="'url'">
+                     <vca:element type="'attr'" name="'mode'" expr="'dtmf'"/>
+                  </vca:grammar>
+               </vca:collect>
+            </onentry>
+            <transition event="vca:success" target="case_hoxyez">
+               <assign location="intv_eventName" expr="'Success'"/>
+               <if cond="(VIVR.getInteractionMode()=='visual' || VIVR.getInteractionMode()=='nlu-voice' || VIVR.getInteractionMode()=='nlu-text')">
+<scripting:script xmlns:scripting="http://www.intervoice.com/sce/action/scripting"><![CDATA[
+		var slotNum = 0;
+		var singleslot;
+		var singleslotName;
+		for (var slot in _eventdata.result) {
+			slotNum++;
+			singleslot = _eventdata.result[slot];
+			singleslotName = slot;
+		}
+		if (slotNum == 1 && (singleslotName == 'DEFAULT' || VIVR.isModelDefinedSlotName())) {
+			_eventdata.result = singleslot;
+		}
+]]></scripting:script>
+</if>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerSaidObj" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Collect, name=CollectCurrencyAmount, id=collect_legdiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerSaidObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.general" target="case_hoxyez">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerSaidObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Collect, name=CollectCurrencyAmount, id=collect_legdiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerSaidObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.unhandled" target="case_hoxyez">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerSaidObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Collect, name=CollectCurrencyAmount, id=collect_legdiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerSaidObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxnomatch" target="case_hoxyez">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerSaidObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxnomatch, type=Collect, name=CollectCurrencyAmount, id=collect_legdiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerSaidObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxnoinput" target="case_hoxyez">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerSaidObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxnoinput, type=Collect, name=CollectCurrencyAmount, id=collect_legdiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerSaidObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxspeechtimeout" target="case_hoxyez">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerSaidObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxspeechtimeout, type=Collect, name=CollectCurrencyAmount, id=collect_legdiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerSaidObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxerrors" target="case_hoxyez">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.callerSaidObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxerrors, type=Collect, name=CollectCurrencyAmount, id=collect_legdiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+                  <icview:result name="resultVariable" expr="_ws.callerSaidObj"/>
+               </icview:log>
+            </transition>
+         </state>
+      </state>
+      <state id="case_hoxyez">
+         <datamodel>
+            <data expr="false" name="case_expr_case_hoxyez"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=Case, name=CallerSaid, id=case_hoxyez, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+               <icview:param name="MainMenu" value="'mainmenu'"/>
+               <icview:param name="Operator" value="'operator'"/>
+            </icview:log>
+            <assign location="case_expr_case_hoxyez" expr="_ws.callerSaidObj.result"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Case, name=CallerSaid, id=case_hoxyez, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="case_expr_case_hoxyez == 'mainmenu'" target="goToBlock_cohrek">
+            <icview:log text="action=leg:MainMenu, type=Case, name=CallerSaid, id=case_hoxyez, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+         <transition cond="case_expr_case_hoxyez == 'operator'" target="goToBlock_hahfaq">
+            <icview:log text="action=leg:Operator, type=Case, name=CallerSaid, id=case_hoxyez, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+         <transition cond="true" target="play_hodzuy">
+            <icview:log text="action=leg:default, type=Case, name=CallerSaid, id=case_hoxyez, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+      </state>
+      <state id="goToBlock_cohrek">
+         <datamodel>
+            <data name="src" expr="'/applications/voice/VB_MainMenu.scxml'"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=GotoBlock, name=VB_MainMenu, id=goToBlock_cohrek, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <send target="'top'" event="'intv:gotoBlock'" namelist="src"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=GotoBlock, name=VB_MainMenu, id=goToBlock_cohrek, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+      <state id="play_hodzuy">
+         <initial>
+            <transition target="genericPlay_play_hodzuy"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=HoldOn, id=play_hodzuy, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=HoldOn, id=play_hodzuy, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_hodzuy">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'HoldOn__play_hodzuy'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m23.wav'"
+                                 fallbackText="'pkease hold while i calculate it.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="play_jatcey">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=HoldOn, id=play_hodzuy, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="play_jatcey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=HoldOn, id=play_hodzuy, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="play_jatcey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=HoldOn, id=play_hodzuy, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="play_jatcey">
+         <initial>
+            <transition target="genericPlay_play_jatcey"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=StillLooking, id=play_jatcey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=StillLooking, id=play_jatcey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_jatcey">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'StillLooking__play_jatcey'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m24.wav'"
+                                 fallbackText="'i\'m still calculating it.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="subroutineCall_lacyug">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=StillLooking, id=play_jatcey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="subroutineCall_lacyug">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=StillLooking, id=play_jatcey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="subroutineCall_lacyug">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=StillLooking, id=play_jatcey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="subroutineCall_lacyug">
+         <datamodel>
+            <data name="intv_subName"
+                  expr="'/resource/getrates/subroutines/process/getCurrencyValue.diagram'"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=SubroutineCall, name=GetRatesWS, id=subroutineCall_lacyug, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+               <icview:param name="fromCurrency" expr="'USD'"/>
+               <icview:param name="toCurrency" expr="_ws.callerOptionObj.result"/>
+            </icview:log>
+            <assign location="intv_eventName" expr="undefined"/>
+            <scripting:script><![CDATA[
+					
+						if (intv_subName.search(/^\s*\/resource\/[^\/]+\/subroutines\/[^\/]+\/.+$/) >= 0)
+						{
+							var libName = intv_subName.replace(/^\s*\/resource(\/[^\/]+\/subroutines\/[^\/]+\/).+$/, '$1');
+							
+							if (libName != undefined && libName != '') 
+							{
+								var libMatch = 0;
+								
+								for (var i = _ws.intv_librarySize; i > 0; i--) 
+								{
+									var libEntry = _ws.intv_libraryList[i - 1];
+									
+									if (libEntry == libName) 
+									{
+										libMatch = i;
+										break;
+									}
+								}
+								
+								if (libMatch == 0) 
+								{
+									_ws.intv_libraryList[_ws.intv_librarySize++] = libName;
+								}
+							}
+						}
+					
+				]]></scripting:script>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=SubroutineCall, name=GetRatesWS, id=subroutineCall_lacyug, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <invoke targettype="x-scxml-component"
+                 src="/getrates/subroutines/process/getCurrencyValue.scxml">
+            <param name="fromCurrency" expr="'USD'"/>
+            <param name="toCurrency" expr="_ws.callerOptionObj.result"/>
+         </invoke>
+         <transition event="subroutineCall_lacyug.invoke.done"/>
+         <transition event="success" target="log_laglij">
+            <assign location="_ws.CurrencyRateObj" expr="_eventdata.intv_returnObject"/>
+            <icview:log text="action=leg:success, type=SubroutineCall, name=GetRatesWS, id=subroutineCall_lacyug, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+               <icview:result name="resultVariable" expr="_ws.CurrencyRateObj"/>
+            </icview:log>
+         </transition>
+         <transition event="error" target="log_woybav">
+            <assign location="_ws.CurrencyRateObj" expr="_eventdata.intv_returnObject"/>
+            <icview:log text="action=leg:error, type=SubroutineCall, name=GetRatesWS, id=subroutineCall_lacyug, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+               <icview:result name="resultVariable" expr="_ws.CurrencyRateObj"/>
+            </icview:log>
+         </transition>
+      </state>
+      <state id="log_laglij">
+         <onentry>
+            <icview:log text="action=entry, type=Log, name=LogRate, id=log_laglij, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <log expr="'Coverting from: USD'" label="'intbank'"/>
+            <log expr="'Coverting to: ' + _ws.callerOptionObj.result" label="'intbank'"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Log, name=LogRate, id=log_laglij, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="hasNoError()" target="calc_pazvay">
+            <icview:log text="action=leg:default, type=Log, name=LogRate, id=log_laglij, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+      </state>
+      <state id="log_woybav">
+         <onentry>
+            <icview:log text="action=entry, type=Log, name=LogError, id=log_woybav, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <log expr="'error result: ' + _ws.CurrencyRateObj.toSource()" label="'intbank'"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Log, name=LogError, id=log_woybav, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="hasNoError()" target="play_jahbay">
+            <icview:log text="action=leg:default, type=Log, name=LogError, id=log_woybav, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+      </state>
+      <state id="play_jahbay">
+         <initial>
+            <transition target="genericPlay_play_jahbay"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayError, id=play_jahbay, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayError, id=play_jahbay, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_jahbay">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayError__play_jahbay'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m107.wav'"
+                                 fallbackText="'sorry i\'m having problems with my calculator.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="goToBlock_molcuc">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayError, id=play_jahbay, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="goToBlock_molcuc">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayError, id=play_jahbay, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="goToBlock_molcuc">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayError, id=play_jahbay, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="goToBlock_molcuc">
+         <datamodel>
+            <data name="src" expr="'/applications/voice/VB_Goodbye.scxml'"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=GotoBlock, name=VB_Goodbye, id=goToBlock_molcuc, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <send target="'top'" event="'intv:gotoBlock'" namelist="src"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=GotoBlock, name=VB_Goodbye, id=goToBlock_molcuc, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+      <state id="calc_pazvay">
+         <onentry>
+            <icview:log text="action=entry, type=Calculate, name=Calculate, id=calc_pazvay, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="_ws.ConvertedRateObj"
+                    expr="_ws.callerSaidObj.result *_ws.CurrencyRateObj"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Calculate, name=Calculate, id=calc_pazvay, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true">
+               <icview:result name="_ws.ConvertedRateObj" expr="_ws.ConvertedRateObj"/>
+            </icview:log>
+         </onexit>
+         <transition cond="hasNoError()" target="case_dixbas">
+            <assign location="intv_eventName" expr="undefined"/>
+         </transition>
+      </state>
+      <state id="case_dixbas">
+         <datamodel>
+            <data expr="false" name="case_expr_case_dixbas"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=Case, name=RateType, id=case_dixbas, document=/intbank/applications/voice/VB_CurrencyConversion.scxml">
+               <icview:param name="MXN" value="'MXN'"/>
+               <icview:param name="GBP" value="'GBP'"/>
+               <icview:param name="EUR" value="'EUR'"/>
+            </icview:log>
+            <assign location="case_expr_case_dixbas" expr="_ws.callerOptionObj.result"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Case, name=RateType, id=case_dixbas, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="case_expr_case_dixbas == 'MXN'" target="play_tolliq">
+            <icview:log text="action=leg:MXN, type=Case, name=RateType, id=case_dixbas, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+         <transition cond="case_expr_case_dixbas == 'GBP'" target="play_pufvog">
+            <icview:log text="action=leg:GBP, type=Case, name=RateType, id=case_dixbas, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+         <transition cond="case_expr_case_dixbas == 'EUR'" target="play_jogsob">
+            <icview:log text="action=leg:EUR, type=Case, name=RateType, id=case_dixbas, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+         <transition cond="true" target="play_qegtuz">
+            <icview:log text="action=leg:default, type=Case, name=RateType, id=case_dixbas, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+      </state>
+      <state id="play_tolliq">
+         <initial>
+            <transition target="genericPlay_play_tolliq"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayPesos, id=play_tolliq, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayPesos, id=play_tolliq, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_tolliq">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayPesos__play_tolliq'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m21.wav'" fallbackText="'okay, currently'"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m22.wav'" fallbackText="'converts to '"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="_ws.ConvertedRateObj.toFixed(2)"
+                                 type="'currencySkipCents'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m26.wav'" fallbackText="'pesos'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="play_moykey">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayPesos, id=play_tolliq, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="play_moykey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayPesos, id=play_tolliq, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="play_moykey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayPesos, id=play_tolliq, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="play_moykey">
+         <initial>
+            <transition target="genericPlay_play_moykey"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=IfFinished, id=play_moykey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=IfFinished, id=play_moykey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_moykey">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'IfFinished__play_moykey'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m11.wav'"
+                                 fallbackText="'well, if you\'re done just hang up otherwise i\'ll take you back to the main menu.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="goToTarget_julfiv">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=IfFinished, id=play_moykey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="goToTarget_julfiv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=IfFinished, id=play_moykey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="goToTarget_julfiv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=IfFinished, id=play_moykey, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state xmlns:ccxml="http://www.intervoice.com/sce/action/ccxml" id="goToTarget_julfiv">
+         <onentry>
+            <icview:log text="action=entry, type=GoToTarget, name=GoTo_MainMenu, id=goToTarget_julfiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=GoToTarget, name=GoTo_MainMenu, id=goToTarget_julfiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="goToBlock_lamgel">
+            <icview:log text="action=leg:tunnel, type=GoToTarget, name=GoTo_MainMenu, id=goToTarget_julfiv, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+         </transition>
+      </state>
+      <state id="play_qegtuz">
+         <initial>
+            <transition target="genericPlay_play_qegtuz"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayCanadian, id=play_qegtuz, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayCanadian, id=play_qegtuz, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_qegtuz">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayCanadian__play_qegtuz'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m21.wav'" fallbackText="'okay, currently'"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m22.wav'" fallbackText="'converts to '"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="_ws.ConvertedRateObj.toFixed(2)"
+                                 type="'number'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m25.wav'" fallbackText="'canadian aye'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="play_moykey">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayCanadian, id=play_qegtuz, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="play_moykey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayCanadian, id=play_qegtuz, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="play_moykey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayCanadian, id=play_qegtuz, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="play_pufvog">
+         <initial>
+            <transition target="genericPlay_play_pufvog"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayPounds, id=play_pufvog, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayPounds, id=play_pufvog, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_pufvog">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayPounds__play_pufvog'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m21.wav'" fallbackText="'okay, currently'"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m22.wav'" fallbackText="'converts to '"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="_ws.ConvertedRateObj.toFixed(2)"
+                                 type="'number'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m28.wav'" fallbackText="'pounds'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="play_moykey">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayPounds, id=play_pufvog, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="play_moykey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayPounds, id=play_pufvog, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="play_moykey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayPounds, id=play_pufvog, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="play_jogsob">
+         <initial>
+            <transition target="genericPlay_play_jogsob"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayEuro, id=play_jogsob, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayEuro, id=play_jogsob, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_jogsob">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayEuro__play_jogsob'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m21.wav'" fallbackText="'okay, currently'"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m22.wav'" fallbackText="'converts to '"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="_ws.ConvertedRateObj.toFixed(2)"
+                                 type="'number'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m27.wav'" fallbackText="'euros'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="play_moykey">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayEuro, id=play_jogsob, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="play_moykey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayEuro, id=play_jogsob, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="play_moykey">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayEuro, id=play_jogsob, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="goToBlock_hahfaq">
+         <datamodel>
+            <data name="src" expr="'/applications/voice/VB_NewOperator.scxml'"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=GotoBlock, name=VB_Operator, id=goToBlock_hahfaq, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"/>
+            <send target="'top'" event="'intv:gotoBlock'" namelist="src"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=GotoBlock, name=VB_Operator, id=goToBlock_hahfaq, document=/intbank/applications/voice/VB_CurrencyConversion.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition event="send.successful" target="documentExit"/>
+      </state>
+   </state>
+   <final id="documentExit"/>
+</scxml>

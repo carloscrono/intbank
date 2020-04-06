@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:icxml="http://www.intervoice.com/icxml" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_zCcEEF_AEeq66fyZ_-5Oiw" type="Icxml" measurementUnit="Pixel">
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_zCcEEV_AEeq66fyZ_-5Oiw"/>
+  <element xmi:type="icxml:RootType" href="getCurrencyValue.icxml#_5d8314e0_98cb_4746_a1dc_3151f96be1a9"/>
+</notation:Diagram>

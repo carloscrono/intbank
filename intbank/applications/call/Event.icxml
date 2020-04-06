@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<icxml:icxml xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gtfns="http://www.intervoice.com/gtfns/1.0" xmlns:icxml="http://www.intervoice.com/icxml" xmi:id="_I-dp8V_WEeq66fyZ_-5Oiw" type="callEventType" gtfns:version="1.5.1.0">
+  <icxml:variables xmi:id="_I-dp9F_WEeq66fyZ_-5Oiw">
+    <icxml:variable xmi:id="_I-dp9V_WEeq66fyZ_-5Oiw" name="intv_appType"/>
+    <icxml:variable xmi:id="_I-dp9l_WEeq66fyZ_-5Oiw" name="intv_eventName"/>
+    <icxml:variable xmi:id="_I-dp91_WEeq66fyZ_-5Oiw" name="intv_eventData"/>
+  </icxml:variables>
+  <icxml:form xsi:type="icxml:EventProcess" xmi:id="_I-dp-F_WEeq66fyZ_-5Oiw" id="eventProcess_yihzep" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:eventProcess xmi:id="_I-dp_V_WEeq66fyZ_-5Oiw"><icxml:eventHandler xmi:id="_I-dp_l_WEeq66fyZ_-5Oiw" eventAction="ErrorAction" eventName="Error"/></icxml:eventProcess><icxml:comment xmi:id="_I-dp_1_WEeq66fyZ_-5Oiw"/><icxml:conditional xmi:id="_I-dqB1_WEeq66fyZ_-5Oiw" target="_I-dqAF_WEeq66fyZ_-5Oiw" gtfns:name="ErrorAction" label="ErrorAction"/></icxml:form>
+  <icxml:form xsi:type="icxml:EventEntry" xmi:id="_I-dqAF_WEeq66fyZ_-5Oiw" id="eventEntry_zalqut" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_I-dqBl_WEeq66fyZ_-5Oiw"/><icxml:default xmi:id="_I-dqFF_WEeq66fyZ_-5Oiw" target="_I-dqDV_WEeq66fyZ_-5Oiw" label=""/><icxml:eventAction xmi:id="_I-dqBV_WEeq66fyZ_-5Oiw" action="ErrorAction"/></icxml:form>
+  <icxml:form xsi:type="icxml:EventReturn" xmi:id="_I-dqDV_WEeq66fyZ_-5Oiw" id="eventReturn_mimpic" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_I-dqE1_WEeq66fyZ_-5Oiw"/><icxml:eventReturn xmi:id="_I-dqEl_WEeq66fyZ_-5Oiw" value="Continue"/></icxml:form>
+</icxml:icxml>

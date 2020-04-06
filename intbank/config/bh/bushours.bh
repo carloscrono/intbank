@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domains xmlns="http://www.intervoice.com/schema/property/3.0">
+  <audit savedby="ICS Business Hours Configuration" timestamp="Fri Mar 06 11:22:37 CST 2020" version="3.0.2.0"/>
+  <domain allow-add="false" domain-type="BH" id="">
+    <description value="ICS Business Hours Configuration"/>
+    <display-name value="bushours.bh"/>
+    <property key="timeZone">
+      <app-value value="SystemV/CST6CDT"/>
+      <description value=""/>
+    </property>
+    <property key="Mon">
+      <app-value value="09:00-18:00"/>
+      <description value="Monday"/>
+    </property>
+    <property key="Tue">
+      <app-value value="09:00-18:00"/>
+      <description value="Tuesday"/>
+    </property>
+    <property key="Wed">
+      <app-value value="09:00-18:00"/>
+      <description value="Wednesday"/>
+    </property>
+    <property key="Thu">
+      <app-value value="09:00-18:00"/>
+      <description value="Thursday"/>
+    </property>
+    <property key="Fri">
+      <app-value value="09:00-18:00"/>
+      <description value="Friday"/>
+    </property>
+    <property key="Sat">
+      <app-value value="closed"/>
+      <description value="Saturday"/>
+    </property>
+    <property key="Sun">
+      <app-value value="closed"/>
+      <description value="Sunday"/>
+    </property>
+    <property key="????1225" removable="true">
+      <app-value value="closed"/>
+      <description value="Christmas"/>
+    </property>
+  </domain>
+</domains>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<domains xmlns="http://www.intervoice.com/schema/property/3.0" >
+	<audit savedby="junit" timestamp="Mon July 18 14:28:00 CDT 2016" version="3.0.0.0" />
+	<domain id="com.intervoice.scxml.runtime.nlu" domain-type="SERVICE" allow-add="false">
+        <description value="NLU Resource Configuration" />
+        <display-name value="NLU Resource"/>
+
+        <property key="nluBaseURL">
+            <app-value value="/%webappname%/resources/nlu" />
+            <default-value value="/%webappname%/resources/nlu" />
+            <description value="This attribute specifies the location (URL) of application NLU overlay files on a Web server." />
+        </property>
+
+        <property key="nluVoiceNoInputTimeout">
+            <app-value value="10000" />
+            <default-value value="10000" />
+            <description value="This attribute specifies max waiting period for user voice input in milliseconds for NLU application" />
+        </property>
+        
+        <property key="nluTextNoInputTimeout">
+            <app-value value="600000" />
+            <default-value value="600000" />
+            <description value="This attribute specifies max waiting period for user text input in milliseconds for NLU application" />
+        </property>
+	</domain> 
+</domains>

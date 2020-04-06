@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<icxml:icxml xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gtfns="http://www.intervoice.com/gtfns/1.0" xmlns:icxml="http://www.intervoice.com/icxml" xmi:id="_d438617a_1521_4fd5_ab8f_05dc92daa42a" type="processSubroutineType" gtfns:version="1.5.1.0">
+  <icxml:variables xmi:id="_edae8a9d_e410_41f6_a032_3ba83d9e9591">
+    <icxml:variable xmi:id="_3e4ab084_869f_4ad5_9d05_36936d0e15ab" name="intv_appType"/>
+    <icxml:variable xmi:id="_a912b4f5_ec0c_49d8_bf50_83f1e829a136" name="intv_eventName"/>
+    <icxml:variable xmi:id="_1e28fa88_dcbd_4916_9669_b5e4991b4415" name="intv_eventData"/>
+    <icxml:variable xmi:id="_6948f71d_a47b_4d07_b1b9_82e667a78306" name="endpoint"/>
+  </icxml:variables>
+  <icxml:form xsi:type="icxml:SubroutineEntry" xmi:id="_69082a96_c3bc_4e39_b6a8_133eb0f2bd55" id="subroutineEntry_zonkag" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_261111de_b617_4a41_9fc9_c28d4816e93c"/>
+		
+		
+		
+	<icxml:default xmi:id="_dd1dfd51_c545_48d3_85b5_6df6379945d0" target="_4ba6d286_7801_4e87_b0aa_41f426b06fd7" label=""/><icxml:subroutineEntryData xmi:id="_c9b802c5_8c2d_45d5_bbe6_dc936309e8e9" description="Method description for _setEndpoint, Return type is not applicable, endpoint is URL of Web Service">
+
+			
+			
+		<icxml:parameter xmi:id="_8d0a7c39_a767_41b0_ad80_d9a98d02f27e" name="endpoint" defaultValue="undefined" comment="Type is string"/><icxml:returnLabel xmi:id="_dbbc838a_c902_4662_a2d7_d6d042816f1f" label="success"/></icxml:subroutineEntryData></icxml:form>
+  <icxml:form xsi:type="icxml:SubroutineReturn" xmi:id="_7e21667e_e171_4326_aad4_8fe93fa27275" id="subroutineReturn_qonmel" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:comment xmi:id="_46e81074_7cb1_4701_a062_4bb5f41a2fac"/>
+		
+		
+	<icxml:subroutineReturn xmi:id="_0e4b42d5_a239_4161_9edb_74efafe704d8" label="success"/></icxml:form>
+  <icxml:form xsi:type="icxml:Script" xmi:id="_4ba6d286_7801_4e87_b0aa_41f426b06fd7" id="script_zepfij" signpost="false" skip="false" debug="false" tunnelExit="false"><icxml:script xmi:id="_94ed3220_1d4f_440b_9227_76baede238fe" inline="true"><icxml:scriptInline xmi:id="_423235c7_5746_47a9_a6cd_c8557f30d9c5"><![CDATA[
+
+			_ws.__CurrencyConvertorService_endpoint = _scxml.parameters.endpoint;
+			]]></icxml:scriptInline></icxml:script><icxml:comment xmi:id="_b432ff5a_cf4c_42c5_8ab9_c728610a2b08"/>
+		
+		
+		
+	<icxml:default xmi:id="_21789dae_6f4d_40e9_b3ad_848e628f8bed" target="_7e21667e_e171_4326_aad4_8fe93fa27275" label=""/></icxml:form>
+</icxml:icxml>

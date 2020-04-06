@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<domains xmlns="http://www.intervoice.com/schema/property/3.0" >
+	<audit savedby="eclipse" timestamp="Tue Sep 20 16:08:10 CDT 2016" version="3.0.0.0" />
+	<domain id="com.intervoice.scxml.cih.client" domain-type="SERVICE">
+		<description value="Customer Interaction Hub Client" />
+        <display-name value="CIH Client"/>
+ 		<property key="url"> 
+			<app-value value="http://127.0.0.1:8080/interactionhub/rest/" /> 
+			<default-value value="http://127.0.0.1:8080/interactionhub/rest/" /> 
+			<description value="URL for the CIH Server" /> 
+		</property> 
+ 		<property key="timeout"> 
+			<app-value value="10000" /> 
+			<default-value value="10000" /> 
+			<description value="CIH read timeout in milliseconds" /> 
+		</property> 
+ 		<property key="enableStandardBreadcrumbs"> 
+			<app-value value="false" /> 
+			<default-value value="false" /> 
+			<description value="Flag to enable standard breadcrumb" /> 
+		</property> 
+ 		<property key="enableGoalBreadcrumbs"> 
+			<app-value value="false" /> 
+			<default-value value="false" /> 
+			<description value="Flag to enable goal breadcrumb" /> 
+		</property> 
+ 		<property key="enableCheckpointBreadcrumbs"> 
+			<app-value value="false" /> 
+			<default-value value="false" /> 
+			<description value="Flag to enable checkpoint breadcrumb" /> 
+		</property> 
+ 		<property key="apiKey"> 
+			<app-value value="" /> 
+			<default-value value="" /> 
+			<description value="If specified, uses secure API calls" /> 
+		</property> 
+        	
+	</domain>
+</domains>
+        	

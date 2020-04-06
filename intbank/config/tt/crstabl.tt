@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domains xmlns="http://www.intervoice.com/schema/property/3.0">
+  <audit savedby="ICS Translate Table" timestamp="Wed Mar 04 12:38:18 CST 2020" version="3.0.0.0"/>
+  <domain allow-add="false" displayable="true" domain-type="TT" id="" preprocessor="application/ecmascript">
+    <description value="ICS Translate Table"/>
+    <display-name value="phonenum.tt"/>
+    <property key="ext">
+      <app-value value="'28180@192.168.28.160'"/>
+      <description value="Test phone number"/>
+    </property>
+  </domain>
+</domains>

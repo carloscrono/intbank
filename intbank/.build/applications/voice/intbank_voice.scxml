@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Exporter version 1.0 at 2020-03-06 14:35:16.353 GMT-6--><!--Note: Components marked as 'debug' have been removed from the call flow.--><scxml xmlns:icview="http://www.intervoice.com/sce/icview"
+       xmlns:jms="http://www.intervoice.com/sce/action/jms"
+       xmlns:mim="http://www.intervoice.com/sce/action/mim"
+       xmlns:scripting="http://www.intervoice.com/sce/action/scripting"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       xmlns:process="http://www.intervoice.com/sce/action/process"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gtfns="http://www.intervoice.com/gtfns/1.0"
+       xmlns="http://www.w3.org/2007/02/scxml"
+       xmlns:icxml="http://www.intervoice.com/icxml"
+       xmlns:xmi="http://www.omg.org/XMI"
+       xmlns:intv="http://www.intervoice.com/scxml"
+       xmlns:vca="http://www.intervoice.com/sce/action/vca"
+       xmlns:ex="http://www.intervoice.com/exporter"
+       initialstate="documentEntry"
+       intv:worksheetscope="applications/voice/Worksheet.ws"
+       version="1.0">
+   <state id="documentEntry">
+      <initial>
+         <transition target="documentEntry_doLocalInit"/>
+      </initial>
+      <state id="documentEntry_doLocalInit">
+         <onentry>
+            <assign location="intv_appType" expr="undefined"/>
+            <rdotype:get xmlns:rdotype="http://www.intervoice.com/sce/action/rdotype"
+                         location="intv_appType"/>
+            <if cond="intv_appType == 'vca'">
+               <assign location="intv_appType" expr="'voice'"/>
+               <elseif cond="intv_appType == 'ccxml'"/>
+               <assign location="intv_appType" expr="'call'"/>
+               <elseif cond="intv_appType == 'UNKNOWN'"/>
+               <assign location="intv_appType" expr="'process'"/>
+            </if>
+         </onentry>
+         <transition target="documentEntry_initialize"/>
+      </state>
+      <state id="documentEntry_initialize">
+         <initial>
+            <transition target="getInitializeStatus_documentEntry_initialize"/>
+         </initial>
+         <datamodel>
+            <data name="src" expr="null"/>
+         </datamodel>
+         <state id="getInitializeStatus_documentEntry_initialize">
+            <transition cond="_ws.intv_isInitialized == undefined"
+                        target="doInitialize_documentEntry_initialize">
+               <assign location="_ws.intv_isInitialized" expr="true"/>
+            </transition>
+            <transition cond="true" target="voiceBegin_mekmok"/>
+         </state>
+         <state id="doInitialize_documentEntry_initialize">
+            <onentry>
+               <assign location="_ws.intv_libraryList" expr="new Array();"/>
+               <assign location="_ws.intv_librarySize" expr="0;"/>
+               <assign location="src" expr="'/applications/' + 'voice' + '/AsyncEvent.scxml'"/>
+               <assign location="intv_eventName" expr="'Initialize'"/>
+               <assign location="intv_eventData" expr="undefined"/>
+            </onentry>
+            <invoke targettype="x-scxml-component" srcexpr="src">
+               <param name="intv_eventName"/>
+               <param name="intv_eventData"/>
+            </invoke>
+            <transition event="doInitialize_documentEntry_initialize.invoke.done"
+                        target="voiceBegin_mekmok"/>
+         </state>
+      </state>
+      <state id="terminatingEventHandler">
+         <onentry>
+            <if cond="intv_eventName == undefined">
+               <assign location="intv_eventName" expr="'unhandled'"/>
+            </if>
+            <if cond="intv_eventName == null">
+               <assign location="intv_eventName" expr="'unhandled'"/>
+            </if>
+            <if cond="_ws.intv_terminatingHandlerSeen == undefined">
+               <assign location="_ws.intv_terminatingHandlerSeen" expr="new Array()"/>
+            </if>
+         </onentry>
+         <transition cond="_ws.intv_terminatingHandlerSeen[intv_eventName] == undefined &amp;&amp; intv_eventName == 'Catastrophic'"
+                     target="invokeTerminatingEventHandlerCatastropic">
+            <assign location="_ws.intv_terminatingHandlerSeen[intv_eventName]" expr="true"/>
+         </transition>
+         <transition cond="_ws.intv_terminatingHandlerSeen[intv_eventName] == undefined"
+                     target="invokeTerminatingEventHandler">
+            <assign location="_ws.intv_terminatingHandlerSeen[intv_eventName]" expr="true"/>
+         </transition>
+         <transition cond="true" target="documentExit">
+            <log label="'core:root'"
+                 expr="'DOC-STOP: A recursive ' + intv_eventName + ' event is detected; ending document execution immediately: ' + '/intbank/applications/voice/intbank_voice.icxml'"/>
+         </transition>
+      </state>
+      <state id="invokeTerminatingEventHandlerCatastropic">
+         <invoke targettype="x-scxml-component" src="/applications/voice/AsyncEvent.scxml">
+            <param name="intv_eventName"/>
+            <param name="intv_eventData"/>
+         </invoke>
+         <transition event="invokeTerminatingEventHandlerCatastropic.invoke.done"
+                     cond="icsession.getProperty('intv_enableHangupAfterCatastrophic') != true"
+                     target="documentExit"/>
+         <transition event="invokeTerminatingEventHandlerCatastropic.invoke.done"
+                     target="terminatingEventHandler">
+            <assign location="intv_eventName" expr="'Hangup'"/>
+            <assign location="intv_eventData" expr="_eventdata"/>
+         </transition>
+      </state>
+      <state id="invokeTerminatingEventHandler">
+         <invoke targettype="x-scxml-component" src="/applications/voice/AsyncEvent.scxml">
+            <param name="intv_eventName"/>
+            <param name="intv_eventData"/>
+         </invoke>
+         <transition event="invokeTerminatingEventHandler.invoke.done"
+                     cond="icsession.getProperty('intv_enableHangupAfterCatastrophic') != true"
+                     target="documentExit"/>
+         <transition event="invokeTerminatingEventHandler.invoke.done"
+                     cond="intv_eventName == 'Hangup'"
+                     target="documentExit"/>
+         <transition event="invokeTerminatingEventHandler.invoke.done"
+                     target="terminatingEventHandler">
+            <assign location="intv_eventName" expr="'Hangup'"/>
+            <assign location="intv_eventData" expr="_eventdata"/>
+         </transition>
+      </state>
+      <transition event="vca:hangup" target="terminatingEventHandler">
+         <assign location="intv_eventName" expr="'Hangup'"/>
+         <assign location="intv_eventData" expr="_eventdata"/>
+         <if cond="(VIVR.getInteractionMode()=='visual' || VIVR.getInteractionMode()=='nlu-voice' || VIVR.getInteractionMode()=='nlu-text')">
+            <scripting:script><![CDATA[
+							
+							if (_eventdata != null && _eventdata.transfer != null)
+							{
+								icsession.setProperty('_last_transfer_stop_datetime', new Packages.java.util.Date());
+								icsession.setProperty('_last_transfer_result', _eventdata.transfer.result);
+								icsession.setProperty('_last_transfer_call_progress', _eventdata.transfer.transfer_call_progress);
+								icsession.setProperty('_last_transfer_call_analysis', _eventdata.transfer.transfer_call_analysis);
+								transferUtil.logToADC();
+							}
+							
+						]]></scripting:script>
+         </if>
+      </transition>
+      <transition event="intv:gotoBlock" target="toFunctionalBlock">
+         <assign location="intv_eventName" expr="undefined"/>
+         <assign location="intv_eventData" expr="_eventdata"/>
+      </transition>
+      <state id="toFunctionalBlock">
+         <transition cond="intv_eventData.src == 'restart'" target="voiceBegin_mekmok"/>
+         <transition cond="true" target="invokeFunctionalBlock"/>
+      </state>
+      <state id="invokeFunctionalBlock">
+         <invoke targettype="x-scxml-component" srcexpr="intv_eventData.src"/>
+      </state>
+      <transition event="intv:remoteTerminate" target="terminatingEventHandler">
+         <assign location="intv_eventName" expr="'Hangup'"/>
+         <assign location="intv_eventData" expr="_eventdata"/>
+      </transition>
+      <transition event="error.*" target="terminatingEventHandler">
+         <assign location="intv_eventName" expr="'Catastrophic'"/>
+         <assign location="intv_eventData" expr="_eventdata"/>
+      </transition>
+      <datamodel><!--Variables from declaration block: _vKtrMF8pEeq66fyZ_-5Oiw--><data name="intv_appType" expr="undefined"/>
+         <data name="intv_eventName" expr="undefined"/>
+         <data name="intv_eventData" expr="undefined"/>
+         <data name="intv_noFieldsInitialized" expr="undefined"/>
+         <data name="intv_allFieldsInitialized" expr="undefined"/>
+         <data name="intv_atLeastOneSituationExecuted" expr="undefined"/>
+         <data name="intv_modalities" expr="undefined"/>
+         <data name="DBErrorObj" expr="undefined"/>
+         <data name="dbErrorObj" expr="undefined"/>
+         <data name="numberOfRecords" expr="undefined"/>
+      </datamodel>
+      <state id="voiceBegin_mekmok">
+         <onentry>
+            <icview:log text="action=entry, type=VoiceBegin, name=, id=voiceBegin_mekmok, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=VoiceBegin, name=, id=voiceBegin_mekmok, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="play_pefnod">
+            <icview:log text="action=leg:default, type=VoiceBegin, name=, id=voiceBegin_mekmok, document=/intbank/applications/voice/intbank_voice.scxml"/>
+         </transition>
+      </state>
+      <state id="play_pefnod">
+         <initial>
+            <transition target="genericPlay_play_pefnod"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=Greeting, id=play_pefnod, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=Greeting, id=play_pefnod, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_pefnod">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'Greeting__play_pefnod'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m1.wav'"
+                                 fallbackText="'welcome to the international bank automated service line.'"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m2.wav'"
+                                 fallbackText="'i can provide you with your current and available balances, play your last 6 checks, or convert american dollars into foreign currency.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="collect_qakwec">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=Greeting, id=play_pefnod, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="collect_qakwec">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=Greeting, id=play_pefnod, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="collect_qakwec">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=Greeting, id=play_pefnod, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="collect_qakwec">
+         <initial>
+            <transition target="genericCollect_collect_qakwec"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Collect, name=CollectAccountNumber, id=collect_qakwec, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+            <assign location="_ws.accountNumberObj" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Collect, name=CollectAccountNumber, id=collect_qakwec, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericCollect_collect_qakwec">
+            <onentry intv:abortonerror="true">
+               <vca:collect fallback="true" inputMode="'both'" maxErrors="4" maxNoInput="3" maxNoMatch="3"
+                            maxSpeechTimeout="3"
+                            slotName="'MEANING'"
+                            formName="'CollectAccountNumber__collect_qakwec'">
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'default'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m3.wav'"
+                                 fallbackText="'but, before i can continue i\'ll need your 5 digit account number.'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'noinput'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m101.wav'"
+                                 fallbackText="'i\'m sorry i didn\'t hear that. please say or enter your 5 digit account number.'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'nomatch'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m100.wav'"
+                                 fallbackText="'i\'m sorry i didn\'t catch that. please say or enter your 5 digit account number.'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:collectPrompts cond="true" doReprompt="false" presentAs="'sequence'" promptCount="1"
+                                      scope="'maxspeechtimeout'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m100.wav'"
+                                 fallbackText="'i\'m sorry i didn\'t catch that. please say or enter your 5 digit account number.'"
+                                 type="'message'"/>
+                  </vca:collectPrompts>
+                  <vca:grammar expr="'builtin:grammar/digits?minlength=5;maxlength=5'"
+                               mimeType="'application/srgs+xml'"
+                               type="'url'">
+                     <vca:element type="'attr'" name="'mode'" expr="'voice'"/>
+                  </vca:grammar>
+                  <vca:grammar expr="'builtin:dtmf/digits?minlength=5;maxlength=5'"
+                               mimeType="'application/srgs+xml'"
+                               type="'url'">
+                     <vca:element type="'attr'" name="'mode'" expr="'dtmf'"/>
+                  </vca:grammar>
+               </vca:collect>
+            </onentry>
+            <transition event="vca:success" target="play_waxvib">
+               <assign location="intv_eventName" expr="'Success'"/>
+               <if cond="(VIVR.getInteractionMode()=='visual' || VIVR.getInteractionMode()=='nlu-voice' || VIVR.getInteractionMode()=='nlu-text')">
+<scripting:script xmlns:scripting="http://www.intervoice.com/sce/action/scripting"><![CDATA[
+		var slotNum = 0;
+		var singleslot;
+		var singleslotName;
+		for (var slot in _eventdata.result) {
+			slotNum++;
+			singleslot = _eventdata.result[slot];
+			singleslotName = slot;
+		}
+		if (slotNum == 1 && (singleslotName == 'DEFAULT' || VIVR.isModelDefinedSlotName())) {
+			_eventdata.result = singleslot;
+		}
+]]></scripting:script>
+</if>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.accountNumberObj" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Collect, name=CollectAccountNumber, id=collect_qakwec, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="resultVariable" expr="_ws.accountNumberObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.general" target="play_waxvib">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.accountNumberObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Collect, name=CollectAccountNumber, id=collect_qakwec, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="resultVariable" expr="_ws.accountNumberObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.unhandled" target="play_waxvib">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.accountNumberObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Collect, name=CollectAccountNumber, id=collect_qakwec, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="resultVariable" expr="_ws.accountNumberObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxnomatch" target="play_waxvib">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.accountNumberObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxnomatch, type=Collect, name=CollectAccountNumber, id=collect_qakwec, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="resultVariable" expr="_ws.accountNumberObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxnoinput" target="play_waxvib">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.accountNumberObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxnoinput, type=Collect, name=CollectAccountNumber, id=collect_qakwec, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="resultVariable" expr="_ws.accountNumberObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxspeechtimeout" target="play_waxvib">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.accountNumberObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxspeechtimeout, type=Collect, name=CollectAccountNumber, id=collect_qakwec, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="resultVariable" expr="_ws.accountNumberObj"/>
+               </icview:log>
+            </transition>
+            <transition event="vca:error.reco.maxerrors" target="play_waxvib">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="_ws.accountNumberObj" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.reco.maxerrors, type=Collect, name=CollectAccountNumber, id=collect_qakwec, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="resultVariable" expr="_ws.accountNumberObj"/>
+               </icview:log>
+            </transition>
+         </state>
+      </state>
+      <state id="play_waxvib">
+         <initial>
+            <transition target="genericPlay_play_waxvib"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=WaitMessage, id=play_waxvib, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=WaitMessage, id=play_waxvib, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_waxvib">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'WaitMessage__play_waxvib'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m4.wav'"
+                                 fallbackText="'please hold while i access your account.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="databaseRetrieve_kicsic">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=WaitMessage, id=play_waxvib, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="databaseRetrieve_kicsic">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=WaitMessage, id=play_waxvib, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="databaseRetrieve_kicsic">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=WaitMessage, id=play_waxvib, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state xmlns:db="http://www.intervoice.com/sce/action/database"
+             id="databaseRetrieve_kicsic">
+         <initial>
+            <transition target="dbQuery_databaseRetrieve_kicsic"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=DatabaseRetrieve, name=RetrieveBalances, id=databaseRetrieve_kicsic, document=/intbank/applications/voice/intbank_voice.scxml">
+               <icview:param name="sql" expr="'SELECT * FROM Account WHERE AccountNum=?'"/>
+            </icview:log>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=DatabaseRetrieve, name=RetrieveBalances, id=databaseRetrieve_kicsic, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true">
+               <icview:result name="resultVariable" expr="_ws.DBBalancesArray"/>
+               <icview:result name="rowCountVariable" expr="numberOfRecords"/>
+            </icview:log>
+         </onexit>
+         <state id="dbQuery_databaseRetrieve_kicsic">
+            <onentry intv:abortonerror="true">
+               <assign location="_ws.DBBalancesArray" expr="undefined"/>
+               <assign location="numberOfRecords" expr="0"/>
+               <assign location="dbErrorObj" expr="undefined"/>
+               <db:query datasource="'java:/comp/env/BankDBConn'" var="_ws.DBBalancesArray"
+                         sql="'SELECT * FROM Account WHERE AccountNum=?'">
+                  <db:param expr="_ws.accountNumberObj.result" type="'VARCHAR'"/>
+               </db:query>
+               <if cond="_ws.DBBalancesArray != null">
+                  <assign location="numberOfRecords" expr="_ws.DBBalancesArray.length"/>
+               </if>
+            </onentry>
+            <transition cond="hasNoError()" target="if_lerfeg">
+               <icview:log text="action=leg:default, type=DatabaseRetrieve, name=RetrieveBalances, id=databaseRetrieve_kicsic, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db" target="log_zelhak">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="dbErrorObj" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db, type=DatabaseRetrieve, name=RetrieveBalances, id=databaseRetrieve_kicsic, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="errorVariable" expr="dbErrorObj"/>
+               </icview:log>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db.sql" target="log_zelhak">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="dbErrorObj" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db.sql, type=DatabaseRetrieve, name=RetrieveBalances, id=databaseRetrieve_kicsic, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="errorVariable" expr="dbErrorObj"/>
+               </icview:log>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db.naming" target="log_zelhak">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="dbErrorObj" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db.naming, type=DatabaseRetrieve, name=RetrieveBalances, id=databaseRetrieve_kicsic, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="errorVariable" expr="dbErrorObj"/>
+               </icview:log>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db.param" target="log_zelhak">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="dbErrorObj" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db.param, type=DatabaseRetrieve, name=RetrieveBalances, id=databaseRetrieve_kicsic, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="errorVariable" expr="dbErrorObj"/>
+               </icview:log>
+            </transition>
+            <transition event="error.action.com.intervoice.scxml.db.internal" target="log_zelhak">
+               <assign location="intv_eventName" expr="'Inline'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <assign location="dbErrorObj" expr="_eventdata"/>
+               <icview:log text="action=leg:inline:Error:error.action.com.intervoice.scxml.db.internal, type=DatabaseRetrieve, name=RetrieveBalances, id=databaseRetrieve_kicsic, document=/intbank/applications/voice/intbank_voice.scxml">
+                  <icview:result name="errorVariable" expr="dbErrorObj"/>
+               </icview:log>
+            </transition>
+         </state>
+      </state>
+      <state id="log_zelhak">
+         <onentry>
+            <icview:log text="action=entry, type=Log, name=DBError, id=log_zelhak, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            <log expr="'db Error: ' + dbErrorObj.errorType" label="'intbank'"/>
+            <log expr="'error msg: ' + dbErrorObj.message" label="'intbank'"/>
+            <log expr="'sql Code: ' + dbErrorObj.sqlCode" label="'intbank'"/>
+            <log expr="'state: ' + dbErrorObj.sqlState" label="'intbank'"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Log, name=DBError, id=log_zelhak, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="hasNoError()" target="play_levvel">
+            <icview:log text="action=leg:default, type=Log, name=DBError, id=log_zelhak, document=/intbank/applications/voice/intbank_voice.scxml"/>
+         </transition>
+      </state>
+      <state id="play_levvel">
+         <initial>
+            <transition target="genericPlay_play_levvel"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayComputerProblem, id=play_levvel, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayComputerProblem, id=play_levvel, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_levvel">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayComputerProblem__play_levvel'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m103.wav'"
+                                 fallbackText="'i\'m sorry i\'m having trouble with my computer.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="goToBlock_haqqiv">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayComputerProblem, id=play_levvel, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="goToBlock_haqqiv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayComputerProblem, id=play_levvel, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="goToBlock_haqqiv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayComputerProblem, id=play_levvel, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="goToBlock_haqqiv">
+         <datamodel>
+            <data name="src" expr="'/applications/voice/VB_Goodbye.scxml'"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=GotoBlock, name=VB_Goodbye, id=goToBlock_haqqiv, document=/intbank/applications/voice/intbank_voice.scxml"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=GotoBlock, name=VB_Goodbye, id=goToBlock_haqqiv, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="toFunctionalBlock">
+            <assign location="intv_eventData"
+                    expr="var source = new Object(); source.src = src; source;"/>
+         </transition>
+      </state>
+      <state id="if_lerfeg">
+         <onentry>
+            <icview:log text="action=entry, type=If, name=FoundData, id=if_lerfeg, document=/intbank/applications/voice/intbank_voice.scxml">
+               <icview:param name="Continue" value="numberOfRecords&gt;0"/>
+            </icview:log>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=If, name=FoundData, id=if_lerfeg, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="numberOfRecords&gt;0" target="goToBlock_kadret">
+            <icview:log text="action=leg:Continue, type=If, name=FoundData, id=if_lerfeg, document=/intbank/applications/voice/intbank_voice.scxml"/>
+         </transition>
+         <transition cond="true" target="play_tewmum">
+            <icview:log text="action=leg:default, type=If, name=FoundData, id=if_lerfeg, document=/intbank/applications/voice/intbank_voice.scxml"/>
+         </transition>
+      </state>
+      <state id="goToBlock_kadret">
+         <datamodel>
+            <data name="src" expr="'/applications/voice/VB_MainMenu.scxml'"/>
+         </datamodel>
+         <onentry>
+            <icview:log text="action=entry, type=GotoBlock, name=VB_MainMenu, id=goToBlock_kadret, document=/intbank/applications/voice/intbank_voice.scxml"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=GotoBlock, name=VB_MainMenu, id=goToBlock_kadret, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="toFunctionalBlock">
+            <assign location="intv_eventData"
+                    expr="var source = new Object(); source.src = src; source;"/>
+         </transition>
+      </state>
+      <state id="play_tewmum">
+         <initial>
+            <transition target="genericPlay_play_tewmum"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayNoData, id=play_tewmum, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayNoData, id=play_tewmum, document=/intbank/applications/voice/intbank_voice.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_tewmum">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayNoData__play_tewmum'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m104.wav'"
+                                 fallbackText="'sorry, my records show no data for this account number.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="goToBlock_haqqiv">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayNoData, id=play_tewmum, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="goToBlock_haqqiv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayNoData, id=play_tewmum, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="goToBlock_haqqiv">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayNoData, id=play_tewmum, document=/intbank/applications/voice/intbank_voice.scxml"/>
+            </transition>
+         </state>
+      </state>
+   </state>
+   <final id="documentExit"/>
+</scxml>

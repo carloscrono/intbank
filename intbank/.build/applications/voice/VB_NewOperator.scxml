@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Exporter version 1.0 at 2020-03-06 14:35:16.321 GMT-6--><!--Note: Components marked as 'debug' have been removed from the call flow.--><scxml xmlns:icview="http://www.intervoice.com/sce/icview"
+       xmlns:jms="http://www.intervoice.com/sce/action/jms"
+       xmlns:mim="http://www.intervoice.com/sce/action/mim"
+       xmlns:scripting="http://www.intervoice.com/sce/action/scripting"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       xmlns:process="http://www.intervoice.com/sce/action/process"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gtfns="http://www.intervoice.com/gtfns/1.0"
+       xmlns="http://www.w3.org/2007/02/scxml"
+       xmlns:icxml="http://www.intervoice.com/icxml"
+       xmlns:xmi="http://www.omg.org/XMI"
+       xmlns:intv="http://www.intervoice.com/scxml"
+       xmlns:vca="http://www.intervoice.com/sce/action/vca"
+       xmlns:ex="http://www.intervoice.com/exporter"
+       initialstate="documentEntry"
+       intv:worksheetscope="applications/voice/Worksheet.ws"
+       version="1.0">
+   <state id="documentEntry">
+      <initial>
+         <transition target="documentEntry_doLocalInit"/>
+      </initial>
+      <state id="documentEntry_doLocalInit">
+         <onentry>
+            <assign location="intv_appType" expr="undefined"/>
+            <rdotype:get xmlns:rdotype="http://www.intervoice.com/sce/action/rdotype"
+                         location="intv_appType"/>
+            <if cond="intv_appType == 'vca'">
+               <assign location="intv_appType" expr="'voice'"/>
+               <elseif cond="intv_appType == 'ccxml'"/>
+               <assign location="intv_appType" expr="'call'"/>
+               <elseif cond="intv_appType == 'UNKNOWN'"/>
+               <assign location="intv_appType" expr="'process'"/>
+            </if>
+         </onentry>
+         <transition target="blockEntry_sozpam"/>
+      </state>
+      <datamodel><!--Variables from declaration block: _16D-NF_QEeq66fyZ_-5Oiw--><data name="intv_appType" expr="undefined"/>
+         <data name="intv_eventName" expr="undefined"/>
+         <data name="intv_eventData" expr="undefined"/>
+         <data name="intv_noFieldsInitialized" expr="undefined"/>
+         <data name="intv_allFieldsInitialized" expr="undefined"/>
+         <data name="intv_atLeastOneSituationExecuted" expr="undefined"/>
+         <data name="intv_modalities" expr="undefined"/>
+         <data name="testPhone" expr="undefined"/>
+      </datamodel>
+      <state id="blockEntry_sozpam">
+         <onentry>
+            <icview:log text="action=entry, type=BlockEntry, name=, id=blockEntry_sozpam, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=BlockEntry, name=, id=blockEntry_sozpam, document=/intbank/applications/voice/VB_NewOperator.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition target="if_vahtoy"/>
+      </state>
+      <state id="if_vahtoy">
+         <onentry>
+            <icview:log text="action=entry, type=If, name=CheckBHours, id=if_vahtoy, document=/intbank/applications/voice/VB_NewOperator.scxml">
+               <icview:param name="open" value="_ws.bushours.isOpen()"/>
+            </icview:log>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=If, name=CheckBHours, id=if_vahtoy, document=/intbank/applications/voice/VB_NewOperator.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition cond="_ws.bushours.isOpen()" target="calc_vupwiw">
+            <icview:log text="action=leg:open, type=If, name=CheckBHours, id=if_vahtoy, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+         </transition>
+         <transition cond="true" target="play_xiphin">
+            <icview:log text="action=leg:default, type=If, name=CheckBHours, id=if_vahtoy, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+         </transition>
+      </state>
+      <state id="play_xiphin">
+         <initial>
+            <transition target="genericPlay_play_xiphin"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayClosed, id=play_xiphin, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayClosed, id=play_xiphin, document=/intbank/applications/voice/VB_NewOperator.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_xiphin">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayClosed__play_xiphin'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m14.wav'"
+                                 fallbackText="'sorry we\'re closed. '"
+                                 type="'message'"/>
+                     <vca:prompt bargeIn="true" cond="true" expr="'m20.wav'"
+                                 fallbackText="'please call back later. goodbye.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="voiceEnd_qabrih">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayClosed, id=play_xiphin, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="voiceEnd_qabrih">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayClosed, id=play_xiphin, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="voiceEnd_qabrih">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayClosed, id=play_xiphin, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="voiceEnd_qabrih">
+         <initial>
+            <transition target="doDisconnect_voiceEnd_qabrih"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=VoiceEnd, name=, id=voiceEnd_qabrih, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=VoiceEnd, name=, id=voiceEnd_qabrih, document=/intbank/applications/voice/VB_NewOperator.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="doDisconnect_voiceEnd_qabrih">
+            <onentry>
+               <vca:disconnect formName="'voiceEnd_qabrih'"/>
+               <scripting:script><![CDATA[
+						icsession.setProperty("intv_vca_disconnect", true);
+					]]></scripting:script>
+            </onentry>
+            <transition event="vca:*" target="activateHangup_voiceEnd_qabrih">
+               <icview:log text="action=leg:vca:*, type=VoiceEnd, name=, id=voiceEnd_qabrih, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            </transition>
+         </state>
+         <state id="activateHangup_voiceEnd_qabrih">
+            <onentry>
+               <send target="'top'" event="'vca:hangup'"/>
+            </onentry>
+            <transition event="send.successful" target="documentExit"/>
+         </state>
+      </state>
+      <state id="calc_vupwiw">
+         <onentry>
+            <icview:log text="action=entry, type=Calculate, name=, id=calc_vupwiw, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            <assign location="testPhone" expr="_ws.csrtbl.translate('ext')"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Calculate, name=, id=calc_vupwiw, document=/intbank/applications/voice/VB_NewOperator.scxml"
+                        nolog="true">
+               <icview:result name="testPhone" expr="testPhone"/>
+            </icview:log>
+         </onexit>
+         <transition cond="hasNoError()" target="play_torred">
+            <assign location="intv_eventName" expr="undefined"/>
+         </transition>
+      </state>
+      <state id="play_torred">
+         <initial>
+            <transition target="genericPlay_play_torred"/>
+         </initial>
+         <onentry>
+            <icview:log text="action=entry, type=Play, name=PlayHold, id=play_torred, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Play, name=PlayHold, id=play_torred, document=/intbank/applications/voice/VB_NewOperator.scxml"
+                        nolog="true"/>
+         </onexit>
+         <state id="genericPlay_play_torred">
+            <onentry intv:abortonerror="true">
+               <vca:present loopCount="1" formName="'PlayHold__play_torred'">
+                  <vca:presentPrompts cond="true" presentAs="'sequence'">
+                     <vca:prompt bargeIn="true" cond="true" expr="'m15.wav'"
+                                 fallbackText="'please hold while i transfer you to a representative.'"
+                                 type="'message'"/>
+                  </vca:presentPrompts>
+               </vca:present>
+            </onentry>
+            <transition event="vca:success" target="transfer_vofhab">
+               <assign location="intv_eventName" expr="'vca:success'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:vca:success, type=Play, name=PlayHold, id=play_torred, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            </transition>
+            <transition event="vca:error.general" target="transfer_vofhab">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.general, type=Play, name=PlayHold, id=play_torred, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            </transition>
+            <transition event="vca:error.unhandled" target="transfer_vofhab">
+               <assign location="intv_eventName" expr="'Ignore'"/>
+               <assign location="intv_eventData" expr="_eventdata"/>
+               <icview:log text="action=leg:ignore:Error:vca:error.unhandled, type=Play, name=PlayHold, id=play_torred, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            </transition>
+         </state>
+      </state>
+      <state id="transfer_vofhab">
+         <onentry>
+            <icview:log text="action=entry, type=Transfer, name=, id=transfer_vofhab, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+            <assign location="intv_eventName" expr="undefined"/>
+            <vca:transfer type="'bridge'" destexpr="'sip:'+ testPhone"
+                          aaiexpr="'INTVEXT=true;callProgress='+false+';transferAudioRepeat='+false+';'"/>
+         </onentry>
+         <onexit>
+            <icview:log text="action=exit, type=Transfer, name=, id=transfer_vofhab, document=/intbank/applications/voice/VB_NewOperator.scxml"
+                        nolog="true"/>
+         </onexit>
+         <transition event="vca:success" target="voiceEnd_qabrih">
+            <assign location="intv_eventName" expr="'vca:success'"/>
+            <assign location="intv_eventData" expr="_eventdata"/>
+            <if cond="(VIVR.getInteractionMode()=='visual' || VIVR.getInteractionMode()=='nlu-voice' || VIVR.getInteractionMode()=='nlu-text')">
+               <scripting:script><![CDATA[
+							
+							if (_eventdata != null && _eventdata.transfer != null)
+							{
+								icsession.setProperty('_last_transfer_stop_datetime', new Packages.java.util.Date());
+								icsession.setProperty('_last_transfer_result', _eventdata.transfer.result);
+								icsession.setProperty('_last_transfer_call_progress', _eventdata.transfer.transfer_call_progress);
+								icsession.setProperty('_last_transfer_call_analysis', _eventdata.transfer.transfer_call_analysis);
+								transferUtil.logToADC();
+							}
+							
+						]]></scripting:script>
+            </if>
+            <icview:log text="action=leg:vca:success, type=Transfer, name=, id=transfer_vofhab, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+         </transition>
+         <transition event="vca:error.general" target="voiceEnd_qabrih">
+            <assign location="intv_eventName" expr="'Catastrophic'"/>
+            <assign location="intv_eventData" expr="_eventdata"/>
+            <if cond="(VIVR.getInteractionMode()=='visual' || VIVR.getInteractionMode()=='nlu-voice' || VIVR.getInteractionMode()=='nlu-text')">
+               <scripting:script><![CDATA[
+							
+							if (_eventdata != null && _eventdata.transfer != null)
+							{
+								icsession.setProperty('_last_transfer_stop_datetime', new Packages.java.util.Date());
+								icsession.setProperty('_last_transfer_result', _eventdata.transfer.result);
+								icsession.setProperty('_last_transfer_call_progress', _eventdata.transfer.transfer_call_progress);
+								icsession.setProperty('_last_transfer_call_analysis', _eventdata.transfer.transfer_call_analysis);
+								transferUtil.logToADC();
+							}
+							
+						]]></scripting:script>
+            </if>
+            <icview:log text="action=leg:vca:error.general, type=Transfer, name=, id=transfer_vofhab, document=/intbank/applications/voice/VB_NewOperator.scxml"/>
+         </transition>
+      </state>
+   </state>
+   <final id="documentExit"/>
+</scxml>

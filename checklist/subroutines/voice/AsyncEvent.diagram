@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Application Upgrader version 3.0.0.201712121704 at 2018-07-16 12:07:48.424 GMT-5--><!--Created by Application Upgrader version 3.0.0.201712121704 at 2018-04-16 09:39:21.955 GMT-5--><!--Created by Application Upgrader version 3.0.0.201611102249 at 2017-05-11 14:14:35.563 GMT-5--><!--Created by Application Upgrader version 2.0.0.201512152227 at 2016-06-15 09:33:15.367 GMT-5--><!--Created by Application Upgrader version 1.5.2.201004121945 at 2010-06-23 15:44:13.985 GMT-5--><!--Created by Application Upgrader version 1.5.0.201001191852 at 2010-02-18 13:59:19.520 GMT-6--><Diagram xmlns="http://www.eclipse.org/gmf/runtime/1.0.2/notation"
+         xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation"
+         xmlns:icxml="http://www.intervoice.com/icxml"
+         xmlns:xmi="http://www.omg.org/XMI"
+         xmi:version="2.0"
+         xmi:id="_s4Djdjl8Ed6weaDUAx_gDA"
+         type="Icxml"
+         name="AsyncEvent.diagram"
+         measurementUnit="Pixel">
+  <children xmlns="" xmi:type="notation:Shape" type="2020" xmi:id="_s4Djdzl8Ed6weaDUAx_gDA">
+      <children xmi:type="notation:DecorationNode" type="5020" xmi:id="_s4DjeDl8Ed6weaDUAx_gDA">
+         <layoutConstraint xmi:type="notation:Location" xmi:id="_s4DjeTl8Ed6weaDUAx_gDA" y="5"/>
+      </children>
+    
+      <element xmi:type="icxml:EventProcess" href="AsyncEvent.icxml#_s3Y1Fjl8Ed6weaDUAx_gDA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s4Djezl8Ed6weaDUAx_gDA" x="10" y="15"/>
+  </children>
+  <children xmlns="" xmi:type="notation:Shape" type="2065" xmi:id="_s4DjfDl8Ed6weaDUAx_gDA">
+      <children xmi:type="notation:DecorationNode" type="5065" xmi:id="_s4DjfTl8Ed6weaDUAx_gDA">
+         <layoutConstraint xmi:type="notation:Location" xmi:id="_s4Djfjl8Ed6weaDUAx_gDA" y="5"/>
+      </children>
+    
+      <element xmi:type="icxml:Cleanup" href="AsyncEvent.icxml#_s3e7sTl8Ed6weaDUAx_gDA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s4JqETl8Ed6weaDUAx_gDA" x="110" y="115"/>
+  </children>
+  <children xmlns="" xmi:type="notation:Shape" type="2066" xmi:id="_s4JqEjl8Ed6weaDUAx_gDA">
+      <children xmi:type="notation:DecorationNode" type="5066" xmi:id="_s4JqEzl8Ed6weaDUAx_gDA">
+         <layoutConstraint xmi:type="notation:Location" xmi:id="_s4JqFDl8Ed6weaDUAx_gDA" y="5"/>
+      </children>
+    
+      <element xmi:type="icxml:CleanupEnd" href="AsyncEvent.icxml#_s3xPkTl8Ed6weaDUAx_gDA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s4JqFjl8Ed6weaDUAx_gDA" x="210" y="115"/>
+  </children>
+  <children xmlns="" xmi:type="notation:Shape" type="2063" xmi:id="_s4JqFzl8Ed6weaDUAx_gDA">
+      <children xmi:type="notation:DecorationNode" type="5063" xmi:id="_s4JqGDl8Ed6weaDUAx_gDA">
+         <layoutConstraint xmi:type="notation:Location" xmi:id="_s4JqGTl8Ed6weaDUAx_gDA" y="5"/>
+      </children>
+    
+      <element xmi:type="icxml:InitializeSession"
+               href="AsyncEvent.icxml#_s33WMjl8Ed6weaDUAx_gDA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s4JqGzl8Ed6weaDUAx_gDA" x="110" y="315"/>
+  </children>
+  <children xmlns="" xmi:type="notation:Shape" type="2064" xmi:id="_s4JqHDl8Ed6weaDUAx_gDA">
+      <children xmi:type="notation:DecorationNode" type="5064" xmi:id="_s4JqHTl8Ed6weaDUAx_gDA">
+         <layoutConstraint xmi:type="notation:Location" xmi:id="_s4JqHjl8Ed6weaDUAx_gDA" y="5"/>
+      </children>
+    
+      <element xmi:type="icxml:InitializeEndSession"
+               href="AsyncEvent.icxml#_s4Djczl8Ed6weaDUAx_gDA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s4JqIDl8Ed6weaDUAx_gDA" x="210" y="315"/>
+  </children>
+  <styles xmlns="" xmi:type="notation:DiagramStyle" xmi:id="_s4JqITl8Ed6weaDUAx_gDA"/>
+  <element xmlns="" xmi:type="icxml:RootType"
+            href="AsyncEvent.icxml#_s3Y1ETl8Ed6weaDUAx_gDA"/>
+</Diagram>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.w3.org/2001/06/grammar
+          http://www.w3.org/TR/speech-grammar/grammar.xsd"
+     xml:lang="en-US" mode="voice" root="root" >
+
+<rule id="root" scope="public">
+  <one-of>
+
+   <item>
+      <one-of>
+        <item> pesos   </item>
+        <item> mexican pesos  </item>
+      </one-of>
+      <tag> MEANING ='MXN' </tag>
+    </item>
+    
+    <item>
+      <one-of>
+        <item> euro dollars   </item>
+        <item> euro  </item>
+      </one-of>
+      <tag> MEANING='EUR' </tag>
+    </item>
+    <item>
+      <one-of>
+        <item> canadian dollars   </item>
+        <item> canadian  </item>
+      </one-of>
+      <tag> MEANING='CAD' </tag>
+    </item>
+    <item>
+      <one-of>
+        <item >british pounds</item>
+        <item >pounds</item>
+        <item >pounds sterling</item>
+      </one-of>
+      <tag> MEANING='GBP' </tag>
+    </item> 
+
+  </one-of>
+</rule>
+</grammar>
